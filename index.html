@@ -1261,12 +1261,12 @@
   <div id="apiModal">
     <div class="apiBox">
       <div class="abox-logo">🔑</div>
-      <h3>Claude API Key Required</h3>
-      <p>Enter your Anthropic API key to enable the Stars AI Assistant with real Claude AI.</p>
-      <input type="password" id="apiKeyInput" placeholder="sk-ant-..." autocomplete="off">
+      <h3>OpenRouter API Key Required</h3>
+      <p>Enter your OpenRouter API key to enable Stars AI with Claude 3.5 Sonnet.</p>
+      <input type="password" id="apiKeyInput" placeholder="sk-or-..." autocomplete="off">
       <button class="apiBtn" onclick="saveAPIKey()">Save & Continue</button>
       <div class="apiNote">
-        <strong>Get your key:</strong> Visit <a href="https://console.anthropic.com" target="_blank" style="color:var(--accent)">console.anthropic.com</a><br>
+        <strong>Get your key:</strong> Visit <a href="https://openrouter.ai/workspaces/default/keys" target="_blank" style="color:var(--accent)">openrouter.ai/keys</a><br>
         Your key is stored locally only. Never shared.
       </div>
     </div>
@@ -1366,7 +1366,7 @@
       <div class="aihead-info"><strong>Stars AI</strong><span>Claude-Powered</span></div>
       <div class="aix" id="aiClose">✕</div>
     </div>
-    <div class="aimod">🟢 Online · Claude 3.5 Sonnet</div>
+    <div class="aimod">🟢 OpenRouter · Claude 3.5 Sonnet</div>
     <div id="aimsgs">
       <div class="msg ai">
         <div class="msg-who">Stars AI</div>
@@ -1533,8 +1533,8 @@
         return;
       }
       
-      if (!key.startsWith('sk-ant-')) {
-        alert('Invalid API key format. It should start with sk-ant-');
+      if (!key.startsWith('sk-')) {
+        alert('Invalid API key format. OpenRouter keys should start with sk-');
         return;
       }
       
@@ -1777,28 +1777,27 @@
         const apiKey = getAPIKey();
         if (!apiKey) {
           hideLoading();
-          addMsg('err', 'API Key not set. Click the AI button and set your key.');
+          addMsg('err', 'API Key not set. Click the AI button and set your OpenRouter key.');
           aiSend.disabled = false;
           aiInput.disabled = false;
           return;
         }
 
-        const response = await fetch('https://api.anthropic.com/v1/messages', {
+        const response = await fetch('https://openrouter.io/api/v1/chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'x-api-key': apiKey,
-            'anthropic-version': '2023-06-01'
+            'Authorization': `Bearer ${apiKey}`
           },
           body: JSON.stringify({
-            model: 'claude-3-5-sonnet-20241022',
-            max_tokens: 500,
+            model: 'claude-3.5-sonnet',
             messages: [
               {
                 role: 'user',
                 content: text
               }
-            ]
+            ],
+            max_tokens: 500
           })
         });
 
@@ -1811,7 +1810,7 @@
         }
 
         const data = await response.json();
-        const reply = data.content[0].text;
+        const reply = data.choices[0].message.content;
         addMsg('ai', reply);
 
       } catch(e) {

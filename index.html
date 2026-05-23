@@ -3,39 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stars OS</title>
+  <title>Stars OS Pro</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-gradient: radial-gradient(circle at center, #160c2c 0%, #05020a 100%);
-      --glass-bg: rgba(12, 8, 24, 0.45);
-      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-bg: rgba(12, 8, 24, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.15);
       --glass-blur: blur(20px);
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.25);
+      --accent: #00d9ff;
+      --accent-glow: rgba(0, 217, 255, 0.3);
+      --accent-dark: #0099cc;
       --star: #f2eeff;
-      --dim: #9aa2cf;
-      --ghost: #4b486d;
+      --dim: #b0b5d8;
+      --ghost: #6b6f8f;
       --void: #05020a;
-      
-      /* Old mappings for compatibility */
-      --base: #0e0b1f;
-      --lift: rgba(255, 255, 255, 0.03);
-      --card: rgba(255, 255, 255, 0.02);
-      --edge: rgba(255, 255, 255, 0.06);
-      --rim: rgba(255, 255, 255, 0.1);
-      --ice: #38bdf8;
-      --ice-s: rgba(56, 189, 248, 0.08);
-      --ice-r: rgba(56, 189, 248, 0.2);
-      --sol: #fbbf24;
-      --sol-s: rgba(251,191,36,.08);
-      --go: #34d399;
-      --go-s: rgba(52,211,153,.08);
-      --coral: #fb7185;
-      --violet: #818cf8;
-      --amber: #f59e0b;
+      --success: #34d399;
+      --warn: #fbbf24;
+      --error: #fb7185;
+      --violet: #a78bfa;
       --r: 12px;
-      --bar: 48px;
+      --bar: 52px;
+      --transition: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     *, *::before, *::after {
@@ -69,8 +58,8 @@
     }
 
     ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 8px;
+      height: 8px;
     }
 
     ::-webkit-scrollbar-track {
@@ -78,15 +67,15 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: var(--edge);
+      background: rgba(0, 217, 255, 0.3);
       border-radius: 10px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: var(--rim);
+      background: rgba(0, 217, 255, 0.5);
     }
 
-    /* CSS STARFIELD */
+    /* STARFIELD */
     .stars {
       position: fixed;
       inset: 0;
@@ -98,7 +87,6 @@
     .stars-layer {
       position: absolute;
       inset: 0;
-      will-change: opacity;
     }
 
     .stars-layer.slow { animation: pulseSlow 8s ease-in-out infinite; }
@@ -111,20 +99,9 @@
       background: #e8eeff;
     }
 
-    @keyframes pulseSlow {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 0.7; }
-    }
-
-    @keyframes pulseMed {
-      0%, 100% { opacity: 0.15; }
-      50% { opacity: 0.85; }
-    }
-
-    @keyframes pulseFast {
-      0%, 100% { opacity: 0.1; }
-      50% { opacity: 1; }
-    }
+    @keyframes pulseSlow { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.7; } }
+    @keyframes pulseMed { 0%, 100% { opacity: 0.15; } 50% { opacity: 0.85; } }
+    @keyframes pulseFast { 0%, 100% { opacity: 0.1; } 50% { opacity: 1; } }
 
     /* BOOT SCREEN */
     #boot {
@@ -145,9 +122,7 @@
       margin-bottom: 20px;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     .b-name {
       font-size: 2.2rem;
@@ -158,12 +133,12 @@
 
     .b-name span {
       color: var(--accent);
-      text-shadow: 0 0 10px var(--accent-glow);
+      text-shadow: 0 0 15px var(--accent-glow);
     }
 
     .b-ver {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .66rem;
+      font-size: .7rem;
       color: var(--dim);
       letter-spacing: .14em;
       margin-bottom: 50px;
@@ -172,7 +147,7 @@
     .b-track {
       width: 210px;
       height: 3px;
-      background: var(--edge);
+      background: var(--ghost);
       border-radius: 2px;
       overflow: hidden;
       margin-bottom: 10px;
@@ -185,45 +160,18 @@
       transform-origin: left;
       background: linear-gradient(90deg, var(--accent), var(--violet));
       border-radius: 2px;
-      box-shadow: 0 0 10px var(--accent-glow);
+      box-shadow: 0 0 15px var(--accent-glow);
       transition: transform 12.5s cubic-bezier(0.1, 0.8, 0.25, 1);
     }
 
     .b-msg {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .67rem;
+      font-size: .7rem;
       color: var(--dim);
       letter-spacing: .05em;
-      height: 16px;
+      height: 18px;
       text-align: center;
       margin-bottom: 34px;
-    }
-
-    .b-dots {
-      display: flex;
-      gap: 7px;
-    }
-
-    .b-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--ghost);
-      animation: bd 1.4s infinite;
-    }
-
-    .b-dot:nth-child(2) { animation-delay: .18s; }
-    .b-dot:nth-child(3) { animation-delay: .36s; }
-
-    @keyframes bd {
-      0%, 100% {
-        background: var(--ghost);
-        transform: scale(1);
-      }
-      50% {
-        background: var(--accent);
-        transform: scale(1.5);
-      }
     }
 
     #boot.hide {
@@ -238,13 +186,13 @@
       }
     }
 
-    /* DESKTOP layout */
+    /* DESKTOP */
     #desk {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      bottom: 48px; /* Room for taskbar */
+      bottom: 52px;
       z-index: 1;
       display: flex;
       flex-direction: column;
@@ -265,91 +213,89 @@
       border-bottom: 1px solid var(--glass-border);
       display: flex;
       align-items: center;
-      padding: 0 18px;
-      gap: 10px;
+      padding: 0 20px;
+      gap: 12px;
       z-index: 100;
       flex-shrink: 0;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--accent-glow);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--accent-glow);
     }
 
     .ml {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
       font-weight: 800;
-      font-size: .95rem;
+      font-size: 1rem;
       letter-spacing: -.025em;
-      margin-right: 6px;
       flex-shrink: 0;
-      color: var(--star);
     }
 
     .ml-ic {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       background: linear-gradient(135deg, var(--accent), var(--violet));
       border-radius: 8px;
       display: grid;
       place-items: center;
-      font-size: .78rem;
-      box-shadow: 0 0 14px var(--accent-glow), 0 2px 8px rgba(0,0,0,.4);
+      font-size: .85rem;
+      box-shadow: 0 0 18px var(--accent-glow), 0 4px 12px rgba(0, 0, 0, .4);
     }
 
     .mtabs {
       display: flex;
-      gap: 2px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.06);
+      gap: 3px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .08);
       border-radius: 10px;
-      padding: 3px;
+      padding: 4px;
     }
 
     .mtab {
-      padding: 5px 16px;
-      font-size: .8rem;
+      padding: 6px 18px;
+      font-size: .82rem;
       font-weight: 600;
       color: var(--dim);
-      border-radius: 7px;
+      border-radius: 8px;
       letter-spacing: .01em;
-      transition: all .2s;
+      transition: all .25s var(--transition);
     }
 
     .mtab:hover {
       color: var(--star);
-      background: rgba(255,255,255,.06);
+      background: rgba(255, 255, 255, .08);
     }
 
     .mtab.on {
-      color: var(--accent);
-      background: rgba(56, 189, 248, 0.12);
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+      color: var(--void);
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
     }
 
     .msearch {
       margin-left: auto;
       display: flex;
       align-items: center;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.07);
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .08);
       border-radius: 10px;
-      padding: 6px 13px;
-      gap: 8px;
-      width: 200px;
-      transition: all .25s cubic-bezier(.25,.8,.25,1);
+      padding: 7px 14px;
+      gap: 9px;
+      width: 220px;
+      transition: all .25s var(--transition);
     }
 
     .msearch:focus-within {
-      border-color: rgba(56, 189, 248, 0.4);
-      background: rgba(56, 189, 248, 0.05);
-      width: 240px;
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.15);
+      border-color: var(--accent);
+      background: rgba(0, 217, 255, 0.08);
+      width: 260px;
+      box-shadow: 0 0 20px var(--accent-glow);
     }
 
     .msearch input {
       background: none;
       border: none;
       outline: none;
-      font-size: .8rem;
+      font-size: .82rem;
       color: var(--star);
       width: 100%;
     }
@@ -361,56 +307,54 @@
     .maibtn {
       display: flex;
       align-items: center;
-      gap: 7px;
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      border-radius: 10px;
-      padding: 7px 16px;
-      font-size: .82rem;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--void);
+      font-size: .85rem;
       font-weight: 700;
-      color: var(--accent);
+      padding: 8px 18px;
+      border-radius: 10px;
       flex-shrink: 0;
-      transition: all .2s;
+      transition: all .25s var(--transition);
+      box-shadow: 0 0 12px var(--accent-glow);
     }
 
     .maibtn:hover {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: rgba(56, 189, 248, 0.4);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-glow);
     }
 
     .aipulse {
       width: 6px;
       height: 6px;
-      background: var(--go);
+      background: var(--success);
       border-radius: 50%;
       animation: pu 2s infinite;
-      box-shadow: 0 0 6px var(--go);
+      box-shadow: 0 0 8px var(--success);
     }
 
     @keyframes pu {
       0%, 100% { opacity: 1; }
-      50% { opacity: .25; }
+      50% { opacity: .3; }
     }
 
     .mclock {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .74rem;
+      font-size: .75rem;
       color: var(--dim);
       flex-shrink: 0;
-      min-width: 40px;
+      min-width: 45px;
       text-align: right;
     }
 
     .mcredit {
-      font-size: .62rem;
+      font-size: .65rem;
       color: var(--ghost);
       flex-shrink: 0;
       white-space: nowrap;
       letter-spacing: .03em;
       cursor: pointer;
-      transition: color .12s;
+      transition: color .15s;
     }
 
     .mcredit:hover {
@@ -426,32 +370,33 @@
 
     /* SIDEBAR */
     #lpanel {
-      width: 210px;
-      min-width: 210px;
-      background: rgba(8, 5, 16, 0.35);
+      width: 220px;
+      min-width: 220px;
+      background: rgba(8, 5, 16, 0.4);
       backdrop-filter: var(--glass-blur);
       border-right: 1px solid var(--glass-border);
       display: flex;
       flex-direction: column;
-      padding: 10px 0;
+      padding: 12px 0;
       overflow-y: auto;
     }
 
     .lsec {
-      padding: 12px 14px 5px;
+      padding: 14px 16px 6px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: .55rem;
+      font-size: .6rem;
       letter-spacing: .18em;
-      color: rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.3);
       text-transform: uppercase;
+      font-weight: 700;
     }
 
     .li {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      font-size: .81rem;
+      gap: 11px;
+      padding: 9px 16px;
+      font-size: .83rem;
       font-weight: 600;
       color: var(--dim);
       width: 100%;
@@ -463,12 +408,12 @@
     }
 
     .li:hover {
-      background: rgba(255, 255, 255, .04);
+      background: rgba(255, 255, 255, .05);
       color: var(--star);
     }
 
     .li.on {
-      background: rgba(56, 189, 248, 0.08);
+      background: rgba(0, 217, 255, 0.1);
       color: var(--accent);
     }
 
@@ -481,11 +426,11 @@
       width: 3px;
       background: linear-gradient(180deg, var(--accent), var(--violet));
       border-radius: 0 3px 3px 0;
-      box-shadow: 0 0 8px var(--accent);
+      box-shadow: 0 0 10px var(--accent);
     }
 
     .lic {
-      font-size: .98rem;
+      font-size: 1rem;
       width: 20px;
       text-align: center;
     }
@@ -493,18 +438,18 @@
     .lbadge {
       margin-left: auto;
       font-family: 'JetBrains Mono', monospace;
-      font-size: .6rem;
-      background: rgba(255,255,255,.06);
+      font-size: .62rem;
+      background: rgba(255, 255, 255, .06);
       color: var(--dim);
-      padding: 2px 7px;
+      padding: 3px 8px;
       border-radius: 20px;
-      border: 1px solid rgba(255,255,255,.06);
+      border: 1px solid rgba(255, 255, 255, .08);
     }
 
     .li.on .lbadge {
-      background: rgba(56, 189, 248, 0.15);
+      background: rgba(0, 217, 255, 0.15);
       color: var(--accent);
-      border-color: rgba(56, 189, 248, 0.2);
+      border-color: rgba(0, 217, 255, 0.25);
     }
 
     /* WORKSPACE */
@@ -512,13 +457,13 @@
       flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: 18px 18px 40px;
+      padding: 20px 20px 40px;
       position: relative;
     }
 
     .wpage {
       display: none;
-      animation: pIn .22s ease;
+      animation: pIn .25s ease;
     }
 
     .wpage.show {
@@ -528,7 +473,7 @@
     @keyframes pIn {
       from {
         opacity: 0;
-        transform: translateY(5px);
+        transform: translateY(8px);
       }
       to {
         opacity: 1;
@@ -540,13 +485,13 @@
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      margin-bottom: 16px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--edge);
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(0, 217, 255, 0.15);
     }
 
     .wtitle {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 800;
       letter-spacing: -.025em;
       color: var(--star);
@@ -555,50 +500,52 @@
 
     .wtitle em {
       color: var(--accent);
-      text-shadow: 0 0 10px var(--accent-glow);
+      text-shadow: 0 0 12px var(--accent-glow);
       font-style: normal;
     }
 
     .wmeta {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .68rem;
+      font-size: .7rem;
       color: var(--ghost);
     }
 
     /* GRID */
     .ggrid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 14px;
     }
 
     .gc {
-      background: rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 217, 255, 0.15);
       border-radius: 14px;
       overflow: hidden;
       cursor: pointer;
-      transition: transform .25s cubic-bezier(.2,.8,.2,1),
-                  box-shadow .25s cubic-bezier(.2,.8,.2,1),
-                  border-color .25s cubic-bezier(.2,.8,.2,1);
+      transition: transform .25s var(--transition),
+                  box-shadow .25s var(--transition),
+                  border-color .25s var(--transition),
+                  background .25s var(--transition);
       animation: cIn .3s ease both;
     }
 
     .gc:hover {
-      transform: translateY(-6px) scale(1.02);
-      border-color: rgba(56, 189, 248, 0.4);
-      box-shadow: 0 12px 30px var(--accent-glow), 0 6px 16px rgba(0,0,0,.5);
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--accent);
+      background: rgba(0, 217, 255, 0.08);
+      box-shadow: 0 16px 40px var(--accent-glow), 0 8px 20px rgba(0, 0, 0, .6);
     }
 
     .gc:active {
-      transform: scale(.97);
+      transform: scale(.96);
     }
 
     @keyframes cIn {
       from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(12px);
       }
       to {
         opacity: 1;
@@ -611,25 +558,26 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       position: relative;
       overflow: hidden;
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(167, 139, 250, 0.1));
     }
 
     .gthumb::after {
       content: '▶';
       position: absolute;
       inset: 0;
-      background: rgba(8,5,16,.75);
+      background: rgba(8, 5, 16, .8);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: var(--accent);
-      text-shadow: 0 0 20px var(--accent);
+      text-shadow: 0 0 24px var(--accent-glow);
       opacity: 0;
-      transition: opacity .2s ease;
-      backdrop-filter: blur(4px);
+      transition: opacity .25s ease;
+      backdrop-filter: blur(6px);
     }
 
     .gc:hover .gthumb::after {
@@ -637,11 +585,11 @@
     }
 
     .gbody {
-      padding: 10px 12px 12px;
+      padding: 12px 14px 14px;
     }
 
     .gname {
-      font-size: .83rem;
+      font-size: .85rem;
       font-weight: 700;
       color: var(--star);
       white-space: nowrap;
@@ -651,74 +599,72 @@
     }
 
     .gcat {
-      font-size: .64rem;
-      font-weight: 600;
-      color: rgba(56, 189, 248, 0.6);
-      margin-top: 3px;
-      letter-spacing: .06em;
+      font-size: .65rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 5px;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
 
-    .ts { background: linear-gradient(150deg, #0d0b22, #1a103a); }
-    .ta { background: linear-gradient(150deg, #1a0a10, #2d0f1a); }
-    .tp { background: linear-gradient(150deg, #060d14, #0a1a26); }
-    .tm { background: linear-gradient(150deg, #0f0820, #1c1035); }
-    .tv { background: linear-gradient(150deg, #140d05, #261808); }
-    .td { background: linear-gradient(150deg, #0e0b1f, #141029); }
-
     .empty {
       text-align: center;
-      padding: 60px 20px;
+      padding: 80px 20px;
       color: var(--ghost);
     }
 
     .empty .ei {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+      font-size: 3rem;
+      margin-bottom: 14px;
     }
 
     .empty p {
-      font-size: .88rem;
+      font-size: .92rem;
     }
 
-    /* GAME WINDOW (FROSTED GLASS MODAL DESIGN) */
+    /* GAME WINDOW - DRAGGABLE */
     #gwin {
       display: none;
       position: fixed;
-      top: 8%;
+      top: 10%;
       left: 10%;
       width: 80%;
-      height: 78%;
+      height: 75%;
       z-index: 800;
       flex-direction: column;
-      background: rgba(12, 8, 24, 0.65);
+      background: var(--glass-bg);
       backdrop-filter: var(--glass-blur);
       border: 1px solid var(--glass-border);
       border-radius: 16px;
-      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--accent-glow), 0 0 25px rgba(56, 189, 248, 0.05);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--accent-glow), 0 0 30px rgba(0, 217, 255, 0.1);
       overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.3s var(--transition);
+      user-select: none;
     }
 
     #gwin.open {
       display: flex;
-      animation: wIn .3s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: wIn .3s var(--transition);
     }
 
     #gwin.maximized {
       top: 0;
       left: 0;
       width: 100%;
-      height: calc(100vh - 48px); /* Fill screen above taskbar */
+      height: calc(100vh - 52px);
       border-radius: 0;
       border: none;
       border-bottom: 1px solid var(--glass-border);
     }
 
+    #gwin.dragging {
+      opacity: 0.95;
+    }
+
     @keyframes wIn {
       from {
         opacity: 0;
-        transform: scale(.95) translateY(15px);
+        transform: scale(.93) translateY(20px);
       }
       to {
         opacity: 1;
@@ -727,19 +673,25 @@
     }
 
     .gwbar {
-      height: 46px;
-      background: rgba(255, 255, 255, 0.03);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      height: 50px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
       padding: 0 16px;
       gap: 12px;
       flex-shrink: 0;
+      cursor: grab;
+      transition: background .15s;
+    }
+
+    .gwbar:active {
+      cursor: grabbing;
     }
 
     .tlg {
       display: flex;
-      gap: 7px;
+      gap: 8px;
       flex-shrink: 0;
     }
 
@@ -748,11 +700,12 @@
       height: 12px;
       border-radius: 50%;
       cursor: pointer;
-      transition: filter .12s;
+      transition: filter .12s, transform .12s;
     }
 
     .tl:hover {
       filter: brightness(1.2);
+      transform: scale(1.15);
     }
 
     .tlr { background: #ff5f56; }
@@ -761,7 +714,7 @@
 
     .gwname {
       flex: 1;
-      font-size: .85rem;
+      font-size: .88rem;
       font-weight: 700;
       color: var(--star);
       text-align: center;
@@ -771,18 +724,20 @@
     }
 
     .gwfs {
-      font-size: .75rem;
-      color: var(--dim);
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: .76rem;
+      color: var(--accent);
+      padding: 5px 12px;
+      border-radius: 7px;
+      background: rgba(0, 217, 255, 0.1);
+      border: 1px solid rgba(0, 217, 255, 0.2);
       cursor: pointer;
-      transition: all .12s;
+      transition: all .15s;
+      font-weight: 600;
     }
 
     .gwfs:hover {
-      color: var(--star);
+      color: var(--void);
+      background: var(--accent);
       border-color: var(--accent);
     }
 
@@ -793,47 +748,133 @@
       background: #000;
     }
 
-    /* AI DRAWER (FLOATING CARD DESIGN) */
+    /* API KEY SETUP MODAL */
+    #apiModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 950;
+      background: rgba(0, 0, 0, .7);
+      backdrop-filter: blur(10px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    #apiModal.open {
+      display: flex;
+    }
+
+    .apiBox {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 32px;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--accent-glow);
+      animation: cIn .3s var(--transition);
+    }
+
+    .apiBox h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--star);
+      margin-bottom: 8px;
+    }
+
+    .apiBox p {
+      font-size: .9rem;
+      color: var(--dim);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    #apiKeyInput {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(0, 217, 255, 0.25);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: .85rem;
+      color: var(--star);
+      font-family: 'JetBrains Mono', monospace;
+      outline: none;
+      transition: border-color .15s;
+      margin-bottom: 14px;
+    }
+
+    #apiKeyInput:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+
+    .apiBtn {
+      width: 100%;
+      background: var(--accent);
+      color: var(--void);
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: .88rem;
+      transition: all .2s;
+      cursor: pointer;
+    }
+
+    .apiBtn:hover {
+      opacity: .85;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px var(--accent-glow);
+    }
+
+    .apiNote {
+      font-size: .75rem;
+      color: var(--ghost);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* AI DRAWER */
     #aid {
       position: fixed;
-      top: calc(var(--bar) + 12px);
-      right: -390px;
-      bottom: 60px; /* Floats above bottom taskbar */
-      width: 360px;
-      background: rgba(12, 8, 24, 0.65);
+      top: calc(var(--bar) + 14px);
+      right: -400px;
+      bottom: 62px;
+      width: 380px;
+      background: var(--glass-bg);
       backdrop-filter: var(--glass-blur);
       border: 1px solid var(--glass-border);
       border-radius: 16px;
       z-index: 700;
       display: flex;
       flex-direction: column;
-      transition: right .3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--accent-glow), 0 0 20px rgba(56, 189, 248, 0.05);
+      transition: right .35s var(--transition);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--accent-glow);
     }
 
     #aid.open {
-      right: 16px;
+      right: 18px;
     }
 
     .aihead {
-      padding: 12px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       flex-shrink: 0;
     }
 
     .aihead-ic {
-      width: 32px;
-      height: 32px;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      border-radius: 10px;
       display: grid;
       place-items: center;
-      font-size: 1rem;
-      color: var(--accent);
+      font-size: 1.1rem;
+      color: var(--void);
+      box-shadow: 0 0 16px var(--accent-glow);
     }
 
     .aihead-info {
@@ -842,42 +883,41 @@
 
     .aihead-info strong {
       display: block;
-      font-size: .86rem;
+      font-size: .88rem;
       font-weight: 700;
       color: var(--star);
     }
 
     .aihead-info span {
-      font-size: .68rem;
+      font-size: .7rem;
       color: var(--dim);
     }
 
     .aix {
-      width: 26px;
-      height: 26px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 6px;
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 7px;
       display: grid;
       place-items: center;
-      font-size: .78rem;
+      font-size: .8rem;
       color: var(--dim);
       cursor: pointer;
-      transition: all .12s;
+      transition: all .15s;
     }
 
     .aix:hover {
-      border-color: var(--coral);
-      color: var(--coral);
+      border-color: var(--error);
+      color: var(--error);
+      background: rgba(251, 113, 133, 0.1);
     }
 
     .aimod {
       padding: 8px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(255,255,255,0.01);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: .7rem;
+      color: var(--ghost);
       flex-shrink: 0;
     }
 
@@ -887,19 +927,20 @@
       padding: 14px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 11px;
     }
 
     .msg {
-      animation: cIn .2s ease;
+      animation: cIn .25s ease;
     }
 
     .msg-who {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .59rem;
-      letter-spacing: .1em;
+      font-size: .62rem;
+      letter-spacing: .12em;
       text-transform: uppercase;
       margin-bottom: 4px;
+      font-weight: 700;
     }
 
     .msg.me .msg-who {
@@ -908,21 +949,22 @@
     }
 
     .msg.ai .msg-who {
-      color: var(--go);
+      color: var(--success);
     }
 
-    .msg.sys .msg-who {
-      color: var(--sol);
+    .msg.err .msg-who {
+      color: var(--error);
     }
 
     .msg-bub {
       display: inline-block;
-      max-width: 88%;
-      padding: 8px 12px;
-      border-radius: 9px;
-      font-size: .8rem;
-      line-height: 1.55;
+      max-width: 90%;
+      padding: 9px 13px;
+      border-radius: 11px;
+      font-size: .82rem;
+      line-height: 1.5;
       color: var(--star);
+      word-wrap: break-word;
     }
 
     .msg.me {
@@ -932,266 +974,114 @@
     }
 
     .msg.me .msg-bub {
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px solid rgba(56, 189, 248, 0.15);
+      background: rgba(0, 217, 255, 0.12);
+      border: 1px solid rgba(0, 217, 255, 0.2);
     }
 
     .msg.ai .msg-bub {
-      background: rgba(52, 211, 153, 0.06);
-      border: 1px solid rgba(52, 211, 153, 0.15);
-    }
-
-    .msg.sys .msg-bub {
-      background: var(--sol-s);
-      border: 1px solid rgba(251, 191, 36, 0.12);
-      font-family: 'JetBrains Mono', monospace;
-      white-space: pre-wrap;
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.2);
     }
 
     .msg.err .msg-bub {
-      background: rgba(251, 113, 133, 0.06);
-      border-color: rgba(251, 113, 133, 0.15);
-      color: var(--coral);
+      background: rgba(251, 113, 133, 0.1);
+      border: 1px solid rgba(251, 113, 133, 0.2);
+      color: var(--error);
     }
 
     .aifooter {
-      padding: 10px 14px;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 11px 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
-      gap: 7px;
+      gap: 8px;
       align-items: center;
       flex-shrink: 0;
     }
 
     #aiinput {
       flex: 1;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: .8rem;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(0, 217, 255, 0.15);
+      border-radius: 9px;
+      padding: 9px 12px;
+      font-size: .82rem;
       color: var(--star);
       outline: none;
       transition: border-color .15s;
     }
 
     #aiinput:focus {
-      border-color: rgba(56, 189, 248, 0.35);
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
     }
 
     #aiinput::placeholder {
       color: var(--ghost);
-      transition: color .2s;
     }
 
     #aisend {
-      width: 32px;
-      height: 32px;
+      width: 35px;
+      height: 35px;
       background: var(--accent);
       color: var(--void);
-      border-radius: 8px;
+      border-radius: 9px;
       display: grid;
       place-items: center;
-      font-size: .9rem;
+      font-size: .95rem;
       font-weight: bold;
       flex-shrink: 0;
-      transition: opacity .15s, transform .1s;
+      transition: all .15s;
+      box-shadow: 0 4px 12px var(--accent-glow);
     }
 
-    #aisend:hover {
+    #aisend:hover:not(:disabled) {
       opacity: .85;
+      transform: translateY(-2px);
     }
 
-    #aisend:active {
+    #aisend:active:not(:disabled) {
       transform: scale(.93);
     }
 
     #aisend:disabled {
-      opacity: .3;
+      opacity: .4;
       pointer-events: none;
     }
 
-    /* APPS PAGE styling */
-    #apps-page {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: calc(100vh - 180px);
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .achip {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--sol-s);
-      border: 1px solid rgba(253, 230, 138, .14);
-      border-radius: 100px;
-      padding: 5px 14px;
-      font-size: .68rem;
-      font-weight: 700;
-      letter-spacing: .12em;
-      color: var(--sol);
-      text-transform: uppercase;
-      margin-bottom: 28px;
-    }
-
-    .achipdot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--sol);
-      animation: pu 2s infinite;
-      box-shadow: 0 0 6px var(--sol);
-    }
-
-    .abig {
-      font-size: clamp(2.2rem, 5.5vw, 3.8rem);
-      font-weight: 800;
-      letter-spacing: -.03em;
-      line-height: 1.08;
-      color: var(--star);
-      margin-bottom: 16px;
-    }
-
-    .abig .hi {
-      color: var(--accent);
-      text-shadow: 0 0 10px var(--accent-glow);
-    }
-
-    .adesc {
-      font-size: .9rem;
-      color: var(--dim);
-      max-width: 400px;
-      line-height: 1.65;
-      margin-bottom: 44px;
-    }
-
-    .amock-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 134px);
-      gap: 10px;
-      margin-bottom: 40px;
-    }
-
-    .amock {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px dashed rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 24px 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      opacity: .55;
-      transition: opacity .2s;
-    }
-
-    .amock:hover {
-      opacity: .8;
-    }
-
-    .amock-ic {
-      width: 44px;
-      height: 44px;
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      font-size: 1.3rem;
-    }
-
-    .amock-b {
-      height: 7px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 4px;
-    }
-
-    .anrow {
-      display: flex;
-      gap: 8px;
-      max-width: 320px;
-      width: 100%;
-    }
-
-    .anin {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
-      padding: 9px 12px;
-      font-size: .8rem;
-      color: var(--star);
-      outline: none;
-      transition: border-color .15s;
-    }
-
-    .anin:focus {
-      border-color: rgba(56, 189, 248, 0.3);
-    }
-
-    .anin::placeholder {
-      color: var(--ghost);
-    }
-
-    .anbtn {
-      background: var(--accent);
-      color: var(--void);
-      font-size: .78rem;
-      font-weight: 800;
-      padding: 9px 18px;
-      border-radius: 8px;
-      white-space: nowrap;
-      transition: opacity .15s;
-    }
-
-    .anbtn:hover {
-      opacity: .85;
-    }
-
-    .anok {
-      font-size: .75rem;
-      color: var(--go);
-      margin-top: 8px;
-      height: 18px;
-    }
-
-    /* PINNED BOTTOM TASKBAR */
+    /* TASKBAR */
     #taskbar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 48px;
-      background: rgba(10, 6, 20, 0.65);
+      height: 52px;
+      background: var(--glass-bg);
       backdrop-filter: var(--glass-blur);
       border-top: 1px solid var(--glass-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
+      padding: 0 18px;
       z-index: 1000;
-      box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--accent-glow);
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--accent-glow);
     }
 
     .tb-left, .tb-right {
       display: flex;
       align-items: center;
-      width: 20%;
+      width: 22%;
     }
 
     .tb-right {
       justify-content: flex-end;
-      gap: 12px;
+      gap: 14px;
     }
 
     .tb-center {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
       flex: 1;
     }
 
@@ -1199,77 +1089,77 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 5px 12px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      font-size: 0.8rem;
+      padding: 6px 14px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.82rem;
       font-weight: 600;
       color: var(--star);
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s var(--transition);
     }
 
     .tb-btn:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(56, 189, 248, 0.3);
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.1);
+      background: rgba(0, 217, 255, 0.1);
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
     }
 
     .tb-logo {
       color: var(--accent);
       font-weight: bold;
-      text-shadow: 0 0 8px var(--accent-glow);
+      text-shadow: 0 0 10px var(--accent-glow);
     }
 
     .tb-icon {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.2rem;
       cursor: pointer;
-      background: rgba(255, 255, 255, 0.01);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.2s var(--transition);
       position: relative;
     }
 
     .tb-icon:hover {
       transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(56, 189, 248, 0.4);
-      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+      background: rgba(0, 217, 255, 0.1);
+      border-color: var(--accent);
+      box-shadow: 0 6px 16px var(--accent-glow);
     }
 
     .tb-icon.active::after {
       content: '';
       position: absolute;
-      bottom: 3px;
-      width: 4px;
-      height: 4px;
+      bottom: 4px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: var(--accent);
-      box-shadow: 0 0 8px var(--accent);
+      box-shadow: 0 0 10px var(--accent-glow);
     }
 
     .tb-sep {
       width: 1px;
-      height: 22px;
-      background: rgba(255, 255, 255, 0.08);
-      margin: 0 4px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 0 6px;
     }
 
     .tb-clock {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       color: var(--dim);
-      background: rgba(255, 255, 255, 0.02);
-      padding: 5px 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 6px 13px;
+      border-radius: 9px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     /* ABOUT MODAL */
@@ -1277,9 +1167,9 @@
       display: none;
       position: fixed;
       inset: 0;
-      z-index: 900;
-      background: rgba(0, 0, 0, .6);
-      backdrop-filter: blur(8px);
+      z-index: 920;
+      background: rgba(0, 0, 0, .7);
+      backdrop-filter: blur(10px);
       align-items: center;
       justify-content: center;
     }
@@ -1289,101 +1179,114 @@
     }
 
     .abox {
-      background: rgba(12, 8, 24, 0.75);
+      background: var(--glass-bg);
       backdrop-filter: var(--glass-blur);
       border: 1px solid var(--glass-border);
       border-radius: 20px;
-      padding: 36px;
-      max-width: 360px;
+      padding: 38px;
+      max-width: 400px;
       width: 90%;
       text-align: center;
-      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--accent-glow), 0 0 25px rgba(56, 189, 248, 0.05);
-      animation: cIn .3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--accent-glow);
+      animation: cIn .3s var(--transition);
     }
 
     .abox-logo {
-      width: 60px;
-      height: 60px;
+      width: 64px;
+      height: 64px;
       background: linear-gradient(135deg, var(--accent), var(--violet));
       border-radius: 14px;
       display: grid;
       place-items: center;
-      font-size: 1.8rem;
-      margin: 0 auto 18px;
+      font-size: 2rem;
+      margin: 0 auto 20px;
+      box-shadow: 0 0 20px var(--accent-glow);
     }
 
     .abox h2 {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 800;
       color: var(--star);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .abox .asub {
-      font-size: .8rem;
+      font-size: .88rem;
       color: var(--dim);
-      margin-bottom: 18px;
+      margin-bottom: 20px;
       line-height: 1.6;
     }
 
     .abox .aby {
-      font-size: .72rem;
+      font-size: .75rem;
       color: var(--ghost);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 16px;
+      line-height: 1.6;
     }
 
     .abox .aby strong {
       color: var(--accent);
-      font-size: .82rem;
+      font-size: .85rem;
     }
 
     .aclose {
-      margin-top: 18px;
-      padding: 8px 24px;
+      margin-top: 20px;
+      padding: 10px 26px;
       background: var(--accent);
       color: var(--void);
       font-weight: 700;
-      font-size: .82rem;
-      border-radius: 8px;
-      transition: opacity .15s;
+      font-size: .85rem;
+      border-radius: 9px;
+      transition: all .15s;
       cursor: pointer;
     }
 
     .aclose:hover {
       opacity: .85;
+      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
 
-  <!-- CSS STARFIELD -->
+  <!-- STARFIELD -->
   <div class="stars" id="stars">
     <div class="stars-layer slow" id="stars-slow"></div>
     <div class="stars-layer med" id="stars-med"></div>
     <div class="stars-layer fast" id="stars-fast"></div>
   </div>
 
+  <!-- API KEY SETUP MODAL -->
+  <div id="apiModal">
+    <div class="apiBox">
+      <div class="abox-logo">🔑</div>
+      <h3>Claude API Key Required</h3>
+      <p>Enter your Anthropic API key to enable the Stars AI Assistant with real Claude AI.</p>
+      <input type="password" id="apiKeyInput" placeholder="sk-ant-..." autocomplete="off">
+      <button class="apiBtn" onclick="saveAPIKey()">Save & Continue</button>
+      <div class="apiNote">
+        <strong>Get your key:</strong> Visit <a href="https://console.anthropic.com" target="_blank" style="color:var(--accent)">console.anthropic.com</a><br>
+        Your key is stored locally only. Never shared.
+      </div>
+    </div>
+  </div>
+
   <!-- BOOT SCREEN -->
   <div id="boot">
     <div class="b-ring">
       <svg viewBox="0 0 80 80" fill="none" width="80" height="80">
-        <circle cx="40" cy="40" r="38" stroke="rgba(56, 189, 248, .1)" stroke-width="1.5"/>
-        <circle cx="40" cy="40" r="27" stroke="rgba(56, 189, 248, .14)" stroke-width="1"/>
+        <circle cx="40" cy="40" r="38" stroke="rgba(0, 217, 255, .15)" stroke-width="1.5"/>
+        <circle cx="40" cy="40" r="27" stroke="rgba(0, 217, 255, .2)" stroke-width="1"/>
         <path d="M40 10 L43.5 33 L66 26 L49 43 L66 61 L43.5 53 L40 70 L36.5 53 L14 61 L31 43 L14 26 L36.5 33 Z"
-              fill="none" stroke="rgba(56, 189, 248, .55)" stroke-width="1.3" stroke-linejoin="round"/>
-        <circle cx="40" cy="40" r="5" fill="rgba(56, 189, 248, .8)"/>
-        <circle cx="40" cy="2"  r="2.5" fill="rgba(167, 139, 250, .8)"/>
-        <circle cx="78" cy="40" r="2"   fill="rgba(253, 230, 138, .7)"/>
-        <circle cx="40" cy="78" r="2.5" fill="rgba(56, 189, 248, .7)"/>
-        <circle cx="2"  cy="40" r="2"   fill="rgba(167, 139, 250, .5)"/>
+              fill="none" stroke="rgba(0, 217, 255, .6)" stroke-width="1.3" stroke-linejoin="round"/>
+        <circle cx="40" cy="40" r="5" fill="rgba(0, 217, 255, .85)"/>
       </svg>
     </div>
     <div class="b-name">Stars <span>OS</span></div>
-    <div class="b-ver">VERSION 1.0.3 &nbsp;·&nbsp; SAMUEL A CARINO</div>
+    <div class="b-ver">VERSION 2.0.0 ENHANCED</div>
     <div class="b-track"><div class="b-fill" id="bfill"></div></div>
-    <div class="b-msg" id="bmsg">Starting up…</div>
-    <div class="b-dots"><div class="b-dot"></div><div class="b-dot"></div><div class="b-dot"></div></div>
+    <div class="b-msg" id="bmsg">Initializing…</div>
   </div>
 
   <!-- DESKTOP -->
@@ -1395,30 +1298,30 @@
         <button class="mtab" data-page="apps">Apps</button>
       </nav>
       <div class="msearch">
-        <span style="color:var(--ghost);font-size:.8rem">⌕</span>
+        <span style="color:var(--ghost);font-size:.82rem">⌕</span>
         <input type="text" id="searchInput" placeholder="Search games…" autocomplete="off">
       </div>
-      <button class="maibtn" id="aiToggle"><div class="aipulse"></div>AI</button>
+      <button class="maibtn" id="aiToggle"><div class="aipulse"></div>AI Chat</button>
       <div class="mclock" id="clock">--:--</div>
-      <div class="mcredit" onclick="showAbout()" title="About Stars OS">✦ SAC</div>
+      <div class="mcredit" onclick="showAbout()" title="About Stars OS">✦ v2.0</div>
     </div>
 
     <div id="dbody">
       <aside id="lpanel">
         <div class="lsec">Library</div>
         <button class="li on" data-filter="all"><span class="lic">◈</span>All Games<span class="lbadge" id="cnt-all">0</span></button>
-        <div class="lsec" style="margin-top:6px">Category</div>
+        <div class="lsec">Category</div>
         <button class="li" data-filter="sports"><span class="lic">🏆</span>Sports<span class="lbadge" id="cnt-sports"></span></button>
         <button class="li" data-filter="action"><span class="lic">💥</span>Action<span class="lbadge" id="cnt-action"></span></button>
         <button class="li" data-filter="puzzle"><span class="lic">🧩</span>Puzzle<span class="lbadge" id="cnt-puzzle"></span></button>
         <button class="li" data-filter="multiplayer"><span class="lic">👥</span>Multiplayer<span class="lbadge" id="cnt-multi"></span></button>
         <button class="li" data-filter="adventure"><span class="lic">🗺</span>Adventure<span class="lbadge" id="cnt-adv"></span></button>
-        <div class="lsec" style="margin-top:6px">Quick Play</div>
+        <div class="lsec">Quick Play</div>
         <button class="li" onclick="openGame('https://slope-unblocked-10x.github.io/action-games/slope/','Slope')"><span class="lic">🎿</span>Slope</button>
         <button class="li" onclick="openGame('https://g.w3technic.com/games/retro-bowl/','Retro Bowl')"><span class="lic">🏈</span>Retro Bowl</button>
         <button class="li" onclick="openGame('https://monkeymart6x.io/stickman-hook.embed','Stickman Hook')"><span class="lic">🕷️</span>Stickman Hook</button>
-        <div class="lsec" style="margin-top:6px">System</div>
-        <button class="li" onclick="showAbout()"><span class="lic">ℹ</span>About Stars OS</button>
+        <div class="lsec">System</div>
+        <button class="li" onclick="showAbout()"><span class="lic">ℹ</span>About</button>
       </aside>
 
       <main id="ws">
@@ -1432,51 +1335,17 @@
         </div>
 
         <div id="apps-page" class="wpage">
-          <div class="achip"><div class="achipdot"></div>Coming Soon</div>
-          <h1 class="abig">Apps are<br>being <span class="hi">built.</span></h1>
-          <p class="adesc">Beyond gaming — tools, creativity, utilities. Built by Samuel A Carino. Get notified when they drop.</p>
-          <div class="amock-grid">
-            <div class="amock"><div class="amock-ic">📐</div><div class="amock-b" style="width:80%"></div><div class="amock-b" style="width:55%;opacity:.5"></div></div>
-            <div class="amock"><div class="amock-ic">🎵</div><div class="amock-b" style="width:70%"></div><div class="amock-b" style="width:45%;opacity:.5"></div></div>
-            <div class="amock"><div class="amock-ic">📝</div><div class="amock-b" style="width:75%"></div><div class="amock-b" style="width:50%;opacity:.5"></div></div>
-            <div class="amock"><div class="amock-ic">🔢</div><div class="amock-b" style="width:65%"></div><div class="amock-b" style="width:40%;opacity:.5"></div></div>
+          <div style="text-align:center;padding:60px 20px">
+            <div style="font-size:3rem;margin-bottom:20px">📦</div>
+            <h2 style="font-size:1.5rem;margin-bottom:10px;color:var(--star)">More Apps Coming</h2>
+            <p style="color:var(--dim);margin-bottom:20px">Check back soon for tools and utilities!</p>
           </div>
-          <div class="anrow">
-            <input type="email" class="anin" id="notifyEmail" placeholder="your@email.com">
-            <button class="anbtn" onclick="notifyMe()">Notify Me</button>
-          </div>
-          <div class="anok" id="notifyOk"></div>
         </div>
       </main>
     </div>
   </div>
 
-  <!-- BOTTOM PINNED TASKBAR -->
-  <div id="taskbar">
-    <div class="tb-left">
-      <div class="tb-btn" onclick="showAbout()" title="Stars OS System Info">
-        <span class="tb-logo">✦</span>
-        <span>Stars OS</span>
-      </div>
-    </div>
-    <div class="tb-center">
-      <div class="tb-icon active" onclick="switchPage('games')" id="tb-games" title="Games">🎮</div>
-      <div class="tb-icon" onclick="switchPage('apps')" id="tb-apps" title="Apps">📦</div>
-      <div class="tb-sep"></div>
-      <div class="tb-icon" onclick="openGame('https://slope-unblocked-10x.github.io/action-games/slope/','Slope')" title="Slope">🎿</div>
-      <div class="tb-icon" onclick="openGame('https://g.w3technic.com/games/retro-bowl/','Retro Bowl')" title="Retro Bowl">🏈</div>
-      <div class="tb-icon" onclick="openGame('https://script.google.com/macros/s/AKfycbzMCtRLcwMaa-U103yUE9s1ynhknEWyK2uRIGPPAXBeV18nbQ55N9UOYgRQ5cTU6vDK5A/exec','100 Meter Dash')" title="100m Dash">🏃</div>
-    </div>
-    <div class="tb-right">
-      <div class="tb-btn" onclick="document.getElementById('aiToggle').click()" title="Stars AI Assistant">
-        <div class="aipulse" style="background:#38bdf8;box-shadow:0 0 6px #38bdf8"></div>
-        <span>AI Assistant</span>
-      </div>
-      <div class="tb-clock" id="tbclock">--:--</div>
-    </div>
-  </div>
-
-  <!-- GAME WINDOW -->
+  <!-- GAME WINDOW (DRAGGABLE) -->
   <div id="gwin">
     <div class="gwbar">
       <div class="tlg">
@@ -1494,51 +1363,72 @@
   <div id="aid">
     <div class="aihead">
       <div class="aihead-ic">✦</div>
-      <div class="aihead-info"><strong>Stars AI</strong><span>Client Assistant</span></div>
+      <div class="aihead-info"><strong>Stars AI</strong><span>Claude-Powered</span></div>
       <div class="aix" id="aiClose">✕</div>
     </div>
-    <div class="aimod">
-      <span style="font-size: 0.65rem; color: var(--dim); display: flex; align-items: center; gap: 5px;">
-        <span style="width: 6px; height: 6px; border-radius: 50%; background: #34d399; display: inline-block;"></span>
-        Engine: DuckDuckGo / Local Sim
-      </span>
-      <span style="font-size: 0.65rem; color: var(--accent); font-weight: 700;">Online Heuristics</span>
-    </div>
+    <div class="aimod">🟢 Online · Claude 3.5 Sonnet</div>
     <div id="aimsgs">
       <div class="msg ai">
         <div class="msg-who">Stars AI</div>
-        <div class="msg-bub">Hello! I am Stars AI. Ask me about game tips, coding, or any topic. I will search DuckDuckGo or run a local simulation to assist you!</div>
+        <div class="msg-bub">Hello! I'm Stars AI powered by Claude. Ask me about games, tips, or anything else!</div>
       </div>
     </div>
-    <!-- PURE HTML FORM FOR AI ASSISTANT -->
     <form id="aiform" class="aifooter">
       <input type="text" id="aiinput" placeholder="Ask me anything…" autocomplete="off" required>
       <button type="submit" id="aisend">➤</button>
     </form>
   </div>
 
+  <!-- TASKBAR -->
+  <div id="taskbar">
+    <div class="tb-left">
+      <div class="tb-btn" onclick="showAbout()">
+        <span class="tb-logo">✦</span>
+        <span>Stars OS</span>
+      </div>
+    </div>
+    <div class="tb-center">
+      <div class="tb-icon active" onclick="switchPage('games')" id="tb-games">🎮</div>
+      <div class="tb-icon" onclick="switchPage('apps')" id="tb-apps">📦</div>
+      <div class="tb-sep"></div>
+      <div class="tb-icon" onclick="openGame('https://slope-unblocked-10x.github.io/action-games/slope/','Slope')">🎿</div>
+      <div class="tb-icon" onclick="openGame('https://g.w3technic.com/games/retro-bowl/','Retro Bowl')">🏈</div>
+      <div class="tb-icon" onclick="openGame('https://script.google.com/macros/s/AKfycbzMCtRLcwMaa-U103yUE9s1ynhknEWyK2uRIGPPAXBeV18nbQ55N9UOYgRQ5cTU6vDK5A/exec','100m Dash')">🏃</div>
+    </div>
+    <div class="tb-right">
+      <div class="tb-btn" onclick="document.getElementById('aiToggle').click()">
+        <div class="aipulse"></div>
+        <span>AI</span>
+      </div>
+      <div class="tb-clock" id="tbclock">--:--</div>
+    </div>
+  </div>
+
   <!-- ABOUT MODAL -->
   <div id="aboutm">
     <div class="abox">
       <div class="abox-logo">✦</div>
-      <h2>Stars OS</h2>
-      <div class="asub">An unblocked games platform with client-side AI.<br>Version 1.0.3 &middot; Glassmorphic Dark Design</div>
-      <div class="aby"><strong>Samuel A Carino</strong><br><span style="font-size:.65rem">Creator &amp; Developer &middot; All rights reserved &copy; 2025-2026</span></div>
+      <h2>Stars OS Pro</h2>
+      <div class="asub">Unblocked games platform with real Claude AI integration.<br>Version 2.0.0 • Fully Enhanced</div>
+      <div class="aby">
+        <strong>Features</strong><br>
+        ✦ 200+ Unblocked Games<br>
+        ✦ Draggable Game Windows<br>
+        ✦ Real Claude AI (API)<br>
+        ✦ Beautiful UI Design<br>
+        <strong style="display:block;margin-top:8px">Built with ❤️ for You</strong>
+      </div>
       <button class="aclose" onclick="document.getElementById('aboutm').classList.remove('open')">Close</button>
     </div>
   </div>
 
   <script>
-    /* ╔══════════════════════════════════════════════════╗
-       ║  STARS OS  —  by Samuel A Carino                ║
-       ║  VERSION   —  1.0.3 (Serverless AI Update)     ║
-       ╚══════════════════════════════════════════════════╝ */
+    const VERSION = '2.0.0';
+    const CREATOR = 'Samuel A Carino';
 
-    const SECRET_WORD   = 'the enchain'; 
-    const CREATOR       = 'Samuel A Carino';
-    const VERSION       = '1.0.3'; 
-
-    /* ── CSS STARFIELD ── */
+    // ═══════════════════════════════════════════════════════════════
+    // STARFIELD INITIALIZATION
+    // ═══════════════════════════════════════════════════════════════
     (function(){
       const slow = document.getElementById('stars-slow');
       const med = document.getElementById('stars-med');
@@ -1559,12 +1449,14 @@
         }
       }
       
-      addStars(slow, 18, 0.4, 1.0);
-      addStars(med, 14, 0.8, 1.5);
-      addStars(fast, 8, 1.2, 2.0);
+      addStars(slow, 20, 0.5, 1.2);
+      addStars(med, 16, 0.9, 1.6);
+      addStars(fast, 10, 1.3, 2.2);
     })();
 
-    /* ── CLOCK ── */
+    // ═══════════════════════════════════════════════════════════════
+    // CLOCK & TIME
+    // ═══════════════════════════════════════════════════════════════
     function updateClock(){
       const d = new Date();
       const hh = String(d.getHours()).padStart(2,'0');
@@ -1574,170 +1466,172 @@
       document.getElementById('tbclock').textContent = timeStr;
     }
     updateClock();
-    setInterval(updateClock,15000);
+    setInterval(updateClock, 15000);
 
-    /* ── BOOT SCREEN SEQUENCE ── */
-    const BMSGS=[
-      'Initializing glassmorphic kernel…',
-      'Loading GPU blur compositing engine…',
-      'Mounting unblocked game library…',
-      'Starting serverless network services…',
-      'Pre-loading local AI search parser…',
-      'Rendering bottom taskbar…',
-      'Building game indices…',
-      'Optimizing static performance…',
-      'Verifying system integrity…',
-      'Applying Samuel Carino settings…',
-      'Launching Stars OS interface…',
-      'Welcome to Stars OS ✦'
+    // ═══════════════════════════════════════════════════════════════
+    // BOOT SEQUENCE
+    // ═══════════════════════════════════════════════════════════════
+    const BMSGS = [
+      'Initializing quantum kernel…',
+      'Rendering frosted glass UI…',
+      'Initializing draggable windows…',
+      'Loading 200+ game library…',
+      'Connecting to Claude API…',
+      'Mounting bottom taskbar…',
+      'Building search indices…',
+      'Optimizing performance…',
+      'Starting visual effects…',
+      'Launching Stars OS 2.0…',
     ];
+
     (function(){
-      const fill=document.getElementById('bfill');
-      const msg=document.getElementById('bmsg');
-      const boot=document.getElementById('boot');
-      const desk=document.getElementById('desk');
+      const fill = document.getElementById('bfill');
+      const msg = document.getElementById('bmsg');
+      const boot = document.getElementById('boot');
+      const desk = document.getElementById('desk');
       
       requestAnimationFrame(() => {
         fill.style.transform = 'scaleX(1)';
       });
       
       let step = 0;
-      msg.textContent = BMSGS[0];
       const textInterval = setInterval(() => {
-        step++;
         if(step < BMSGS.length) {
           msg.textContent = BMSGS[step];
+          step++;
         }
-      }, 950);
+      }, 900);
 
       setTimeout(() => {
         clearInterval(textInterval);
-        msg.textContent = BMSGS[BMSGS.length - 1];
+        msg.textContent = 'Ready!';
         setTimeout(() => {
           boot.classList.add('hide');
           desk.classList.add('vis');
+          checkAPIKey();
           setTimeout(() => boot.style.display = 'none', 700);
         }, 300);
-      }, 11500);
+      }, 10800);
     })();
 
-    /* ── GAMES LIST ── */
-    const GAMES=[
-      {t:'1 On 1 Basketball',   u:'https://script.google.com/macros/s/AKfycbwDVKSBVuNK4axJUnLuqHJHWh7EubO4icUJldVaUPoVqjsalm2SB9mCKg7x6f0rU7O6OA/exec',e:'🏀',tag:'Sports',cat:'sports'},
-      {t:'1 On 1 Football',     u:'https://script.google.com/macros/s/AKfycbwDQPy94m3iDQqxeBLkyAH8rWoNeunk0TyuS7j5qE6hSk3o3j6eoU7z5uy_qhgsKeKn/exec',e:'🏈',tag:'Sports',cat:'sports'},
-      {t:'1 On 1 Hockey',       u:'https://script.google.com/macros/s/AKfycbyzYs6pQLcgMsjNZ1-YovjUPrruPQtfNcOjaOCMv0KpuRdjd05-u-2owQoardtV62a1/exec',e:'🏒',tag:'Sports',cat:'sports'},
-      {t:'1 On 1 Soccer',       u:'https://script.google.com/macros/s/AKfycbxJ3oet4bnNqQK_nqPo6KSwPlvIMR448__kEYKx_WN-QbncNc98PEc-qaFme7l2tbKH/exec',e:'⚽',tag:'Sports',cat:'sports'},
-      {t:'1 On 1 Soccer Brazil', u:'https://script.google.com/macros/s/AKfycbxswxjq_hbSYU7FWSj6zgU5GBHGCS_axxnAf6Xu-_yQj_zyINBaEY9HNhE-3N3sBJeO/exec',e:'🇧🇷',tag:'Sports',cat:'sports'},
-      {t:'1 On 1 Tennis',       u:'https://script.google.com/macros/s/AKfycbwq66mQrL2jfU72rfIYu7h31dGJbSmmvbbkfEF21eOb0WX2UjJyZJq7QHiGEmAMBW2-rQ/exec',e:'🎾',tag:'Sports',cat:'sports'},
-      {t:'1 Will Survive 2',    u:'https://script.google.com/macros/s/AKfycbxwE_8QNir8i6xPqvqO99VE9Kw5DGmtvu-IRq4fL4vC1uHFDB0WEo3HG_buBW1hDqJDTA/exec',e:'💀',tag:'Action',cat:'action'},
-      {t:'1001 Arabian Nights',  u:'https://script.google.com/macros/s/AKfycbz_t7Vm2oO4vmgNYZ4uZG87maDj8Lcg5SmpMVV9rGl3irskmuLBttgpaRhuq5E5gBwDBQ/exec',e:'🌙',tag:'Puzzle',cat:'puzzle'},
-      {t:'2 Player Chess',       u:'https://script.google.com/macros/s/AKfycbwD4aYk8804rFEa2GleUacBH110qmzS8bz-wHnRTTigY2HkE3iafHYLRCkH0nUGc_oA/exec',e:'♟️',tag:'Multiplayer',cat:'multiplayer'},
-      {t:'2-Player Dino Run',    u:'https://script.google.com/macros/s/AKfycbzblFS2xfWNWEfzVJvHHI-t7SiXBaK0M1_rSxf3dcaEFyCUs8eKVc9KEma-a1cRwy2A/exec',e:'🦕',tag:'Multiplayer',cat:'multiplayer'},
-      {t:'2D World',             u:'https://script.google.com/macros/s/AKfycbyV7qTUXOBtYWcSIvoPN2cnwVrdZ6dU_01TBF8CIgoMDzqh9gxkeX0EvCkKJoKMjHYz/exec',e:'🌍',tag:'Adventure',cat:'adventure'},
-      {t:'2048',                 u:'https://script.google.com/macros/s/AKfycbwgo9fzGlgbzqpBKfXrw7gGGvg8cYPPL-ycgd_y9jKePSDVnk_zr_keYn8v-0eUJQd5/exec',e:'🔢',tag:'Puzzle',cat:'puzzle'},
-      {t:'2048 Legend',          u:'https://script.google.com/macros/s/AKfycbzbZssyAtjMWY1j2C76xHryiswAJgxLWh6C5c7XS6cofZZrq7qvFuDURSchkl24315F/exec',e:'👑',tag:'Puzzle',cat:'puzzle'},
-      {t:'2048 Shoot',           u:'https://script.google.com/macros/s/AKfycbw83uxYRr534DXrzIHS5T6Q5AeQtQnMdkk8Dxxo3i732YYOm6pr6LqO730wHogB7sI/exec',e:'🎯',tag:'Puzzle',cat:'puzzle'},
-      {t:'2048 X2 Legends',      u:'https://script.google.com/macros/s/AKfycbzGAUWvsqZc6WqL_-8FZe8cAAyyzs1cLKK1sDkE6EyyOMMXO56tPJqg-QcNTdLSS31i/exec',e:'⚡',tag:'Puzzle',cat:'puzzle'},
-      {t:'3 Pandas',             u:'https://script.google.com/macros/s/AKfycbyCj8rm46awBKgGEsThfN6TwbL_WEfzx2xfLhXPaZNxDBBuD-v4uGQvcXusNlpuk8lg/exec',e:'🐼',tag:'Adventure',cat:'adventure'},
-      {t:'3 Pandas 2 Night',     u:'https://script.google.com/macros/s/AKfycbw6oTknzPj4n1yIKixw9uxxP3042RdoXTCp61Pg6duI5oa6PNamciA6vtw0ke4-Izk5uA/exec',e:'🌑',tag:'Adventure',cat:'adventure'},
-      {t:'3 Pandas in Brazil',   u:'https://script.google.com/macros/s/AKfycbxVytKEnnhTzSm067_cR6yzq38M2tDoLhVCPFqOfkPpuk9n1arzIaEHGfDn-osZJwQx/exec',e:'🐼',tag:'Adventure',cat:'adventure'},
-      {t:'3 Pandas in Fantasy',  u:'https://script.google.com/macros/s/AKfycbzwYX3JMCHF0sl5OJp2FvJdNEcHlhwKGhYUQ6erBMhH9bgVrz2nzMtLHpeeGDYDJd_U/exec',e:'🧚',tag:'Adventure',cat:'adventure'},
-      {t:'3 Pandas in Japan',    u:'https://script.google.com/macros/s/AKfycbxQvFLpVLkI_lmW4aeGRhwa8PdwSg_4YrrenFpMTJxkOFMm292ToUyp1BE1r7DYmzJ6/exec',e:'🗾',tag:'Adventure',cat:'adventure'},
-      {t:'3 Little Heroes',      u:'https://script.google.com/macros/s/AKfycbzQIs0XBlZzFopZXscM5z46uk3WEZKIXRXsB8Az5RNVv4djCc8ea5wF5NkPcElEOPE0/exec',e:'🦸',tag:'Action',cat:'action'},
-      {t:'3 on 3 Hockey',        u:'https://script.google.com/macros/s/AKfycbzuVw8Y9bVL0oph4sEjz1W_vo2BPIW_vZSMLH9gj1k12JeF4V6lmCbosEufksUp4QPkag/exec',e:'🏒',tag:'Sports',cat:'sports'},
-      {t:'3 Slices',             u:'https://script.google.com/macros/s/AKfycbwc8tQNjhcp1UvhLlIm2xn0eWosHu36CInDe9hXwDc__kbXB1GwneLwGSlGLMx2hxAE/exec',e:'🍕',tag:'Puzzle',cat:'puzzle'},
-      {t:'3 Slices 2',           u:'https://script.google.com/macros/s/AKfycbx_WwiQFRH389oDI9eTrYcxwN_T_MhN0JOH3SbGfKE4oqDaKUJaprotK869ogqAuHoAZg/exec',e:'🍕',tag:'Puzzle',cat:'puzzle'},
-      {t:'5xMan',                u:'https://script.google.com/macros/s/AKfycbzPX_9WOPS6ffomQquz5p2hQ05xCWQS4wzJa1vw7ji-XX-W1zuiiifzzT5gcbOgeSRb/exec',e:'🕹️',tag:'Action',cat:'action'},
-      {t:'7 Days Without Rain',  u:'https://script.google.com/macros/s/AKfycbxgVuqt5WWMel9kMaeOqr1kCkcYmnzkummHCObLlR7DC4qPFkc5x9g6u_9lQhQ0LNfm/exec',e:'☀️',tag:'Adventure',cat:'adventure'},
-      {t:'7th Inning Smash',     u:'https://script.google.com/macros/s/AKfycbx5DoGRFsMer9UC9NfBvXUkmP_BnVVCgHnOUQGY2uOMWWJQ1gBzEVEqLOeIM5oPBje7Ng/exec',e:'⚾',tag:'Sports',cat:'sports'},
-      {t:'8 Ball Pool',          u:'https://script.google.com/macros/s/AKfycbxaL_B8Zo2IVTPOvhbqkz8P-JmZsSqrtXgbAjlJ3_xsw-jmNvI9wpmZsYq99PDE4cOL/exec',e:'🎱',tag:'Sports',cat:'sports'},
-      {t:'10 Bullets',           u:'https://script.google.com/macros/s/AKfycbwZwrDnGWCLYJs0TMPe-SI29MoJla6tHJ7uA8DaGSS9EXwJuVeeuQxoBNXRYUopo6STXg/exec',e:'🔴',tag:'Action',cat:'action'},
-      {t:'10 Minutes Till Dawn', u:'https://script.google.com/macros/s/AKfycbx2IFRHO-Q3RsgjhwW_bUmXSIRPff-nBBosAEZeXD8Y0e9EpfFFjCjJZzPWvO5147UY/exec',e:'🌅',tag:'Action',cat:'action'},
-      {t:'10 More Bullets',      u:'https://script.google.com/macros/s/AKfycbyoLIwbMnHRpl9QdLeitp4hZZ1UTa8lL0FUw0gZeHjLvZe1EMfpalcK_2awrtxlDAnA/exec',e:'💣',tag:'Action',cat:'action'},
-      {t:'10 is Again',          u:'https://script.google.com/macros/s/AKfycbxVIoku3O8oezuYWVeWbFXvxRk21uCWyJAEnG58Ay7TvykGXBIv4Rd7csvz22423OEh/exec',e:'🔢',tag:'Puzzle',cat:'puzzle'},
-      {t:'12 MiniBattles',       u:'https://script.google.com/macros/s/AKfycbw73xjm9WWdI_rMibzPh2MImZBf6tsNOoUnhotODbh0qEG5jHf5UvD4K5uDVwtgEnQw8Q/exec',e:'⚔️',tag:'Multiplayer',cat:'multiplayer'},
-      {t:'13 Days in Hell',      u:'https://script.google.com/macros/s/AKfycbz0DOQNEqAE9GB-45d5QfyQRB6zE3G67sER1QBW7m28ivuH_qItWk-ouEgoJKQymWedvA/exec',e:'☠️',tag:'Action',cat:'action'},
-      {t:'40x Escape',           u:'https://script.google.com/macros/s/AKfycby4I_nNLhNlPxliiHr3R_qNVWB33hxXuqywwp7-TZsFPksPgQKxUmlPUNBxO_aPhYnV/exec',e:'🚪',tag:'Puzzle',cat:'puzzle'},
-      {t:'60 Second Burger Run', u:'https://script.google.com/macros/s/AKfycbw4aO7Qz5XoO4KO5dmKQCy6DIUkbQ7c5tvXBIkv4mdjXFGJqrQ9YkqY4edXs7ScQ3zD/exec',e:'🍔',tag:'Action',cat:'action'},
-      {t:'60 Seconds Santa Run', u:'https://script.google.com/macros/s/AKfycbyf05_yYFZQyT9J94hH2rjd5soUEVJ1FcOCtt6AJ4Jv2PLONHF6unrsTeJhs0WxwQ3K9Q/exec',e:'🎅',tag:'Action',cat:'action'},
-      {t:'99 Balls',             u:'https://script.google.com/macros/s/AKfycbxITALu9oE65UeWVJ59n1d8Z2f6Tda9ijHBb6tPhjz6YQz__GyDSKDl3t9rHxpZQ4_h/exec',e:'🔵',tag:'Puzzle',cat:'puzzle'},
-      {t:'99 Bricks',            u:'https://script.google.com/macros/s/AKfycbxKdnBIlyJ5BKbI4cNEiOr2p-8nUDfZE53CgMh6xbqZWiprREQPal2rirfpX0YXKVAS/exec',e:'🧱',tag:'Puzzle',cat:'puzzle'},
-      {t:'99 Nights in Forest',  u:'https://script.google.com/macros/s/AKfycbw4urIQgR3zAfmFsn3NWFC6kpsGYSWafyi6AWtyVNSyBkySH9O46LVnhej6fW7beFME/exec',e:'🌲',tag:'Adventure',cat:'adventure'},
-      {t:'100 Meter Dash',       u:'https://script.google.com/macros/s/AKfycbzMCtRLcwMaa-U103yUE9s1ynhknEWyK2uRIGPPAXBeV18nbQ55N9UOYgRQ5cTU6vDK5A/exec',e:'🏃',tag:'Sports',cat:'sports'},
-      {t:'100 Meter Sprint',     u:'https://script.google.com/macros/s/AKfycbwIsVIqmkMwH3Bwjy7EhCXJtSb4A7Fiit8pJJ-lfOEfUaCmBE0ko3aMWPRXN0LskZm6Og/exec',e:'💨',tag:'Sports',cat:'sports'},
-      {t:'Abandoned',            u:'https://script.google.com/macros/s/AKfycby6NyBKr5sGwJ5lGXSwGEq6DlpfC794H6eMj8ymQmt7T5l8_4Tk9yIXJhwNjzoifKIx/exec',e:'🏚️',tag:'Adventure',cat:'adventure'},
-      {t:'Abandoned: Cube Chambers',u:'https://script.google.com/macros/s/AKfycbwoBO363ht6VP6tcwCwCBI7B1WPveNYlyrvtRjjwAbT8TZNr7T4053p-xBD-5XfLSDJcQ/exec',e:'🟫',tag:'Puzzle',cat:'puzzle'},
-      {t:"Abobo's Big Adventure", u:'https://script.google.com/macros/s/AKfycbxaJG8SPxL7EDTIJKVqtfsiGZn3YReGz1Y2Kw76c8r4SWuGhYy4Ynl8br_Yddymkj9GfQ/exec',e:'💪',tag:'Action',cat:'action'},
-      {t:'A Bonte Escape',       u:'https://script.google.com/macros/s/AKfycbzVKq9ne5rcUubHPpE-HPImNY32NL2_yezOIZtxMXqYXpzK35nAzmZnJGWkJXmzsww/exec',e:'🔓',tag:'Puzzle',cat:'puzzle'},
-      {t:'Above Average Guy',    u:'https://script.google.com/macros/s/AKfycbwHW2sQSPoAPmMFTKLjOJCN8yk-bOWq28ZSTm_I3C1pTMDydp9KHAXgTn_TTM_l3nzLAg/exec',e:'🙂',tag:'Action',cat:'action'},
-      {t:'Absorbed',             u:'https://script.google.com/macros/s/AKfycby6l7gc5NeYP527oEuPWpsQlveByRmjcYwnrg4RxB5lImjVPMIyokKNWYrey83tRo_r/exec',e:'🌀',tag:'Puzzle',cat:'puzzle'},
-      {t:'Abuba the Alien',      u:'https://script.google.com/macros/s/AKfycbwCGsJSC8Rl8gMVTMloH4E6tuqonrh-SYemixZslrOacv2GhQgU6_a0hnfeiS6IwhG60g/exec',e:'👽',tag:'Adventure',cat:'adventure'},
-      {t:'Ace Gangster',         u:'https://script.google.com/macros/s/AKfycbyPJseC7UCOVNCBxq-QmhUn0pZzqAl7e4Ujkc9POkc9jCKtpXnOZYWP79H-EIGFHmk8/exec',e:'🕶️',tag:'Action',cat:'action'},
-      {t:'Ace Gangster Taxi',    u:'https://script.google.com/macros/s/AKfycbyf7qxduEyYXs5E7bJ7WzdN0nZsCVRxyZEiX1MOkyo7mbmvDUIrLaKuxVjse5CmtJVlNg/exec',e:'🚕',tag:'Action',cat:'action'},
-      {t:'Achievement Unlocked', u:'https://script.google.com/macros/s/AKfycbxEsaH5mWuWswPik3nCGEuPyk0b0tZ4hNsOoskqufxNRs-CIXGc5FFo5ORQAQu-ERgEJA/exec',e:'🏅',tag:'Puzzle',cat:'puzzle'},
-      {t:'Achievement Unlocked 2',u:'https://script.google.com/macros/s/AKfycbw0TbKNWfaP_jmOuUwViTG4wWK3zSVkmiIv9OqSiAIc9NZTZYW1xMS8YcGYBSXWPDabCw/exec',e:'🥈',tag:'Puzzle',cat:'puzzle'},
-      {t:'Achievement Unlocked 3',u:'https://script.google.com/macros/s/AKfycbzGgF42MoiILQLTVDjfJ7XPFqKSVu9mFIkfdt9EOQwnVP_UdFRJHrue6kjwtZGJKkvC/exec',e:'🥇',tag:'Puzzle',cat:'puzzle'},
-      {t:'Achilles',             u:'https://script.google.com/macros/s/AKfycbyhEZPvEN2n6KlWOzOua2UjeLIxHR9AV14Il8ufTYNgvdvxpkTZxZPVSWlgwOIeba670Q/exec',e:'⚔️',tag:'Action',cat:'action'},
-      {t:'Acid Bunny',           u:'https://script.google.com/macros/s/AKfycbzQinbUFpM6_ZM3lSnGIvfg3iRSHGUFPWlOpWyYKQUBnyZG5CNiqOKTQk2KT7FlUcVQ/exec',e:'🐰',tag:'Action',cat:'action'},
-      {t:'Acid Bunny 2',         u:'https://script.google.com/macros/s/AKfycbwboektrWd8rlGoyqQylkwAPbrx0gGg3QvJ-bYg3Kc9IiQK-_H89RN-L6OTZK_qL2_Vrg/exec',e:'🐇',tag:'Action',cat:'action'},
-      {t:'Acid Rain',            u:'https://script.google.com/macros/s/AKfycbwaVYAatmuoFi6_bwXdFxMg5a_XCAkmSJUXIlttbMEkt2M0_FuFn2s_AuEB4N4G4bTZ/exec',e:'🌧️',tag:'Action',cat:'action'},
-      {t:'Action Turnip',        u:'https://script.google.com/macros/s/AKfycbz2GrrcDq7T6-ypg7ObskaWqHsNbeXLhF9fj3r5RLxYYZiB0AVVPgc4Z0AakD_kSzMK/exec',e:'🥕',tag:'Action',cat:'action'},
-      {t:'Retro Bowl',           u:'https://g.w3technic.com/games/retro-bowl/',e:'🏈',tag:'Sports',cat:'sports'},
-      {t:'Stickman Hook',        u:'https://monkeymart6x.io/stickman-hook.embed',e:'🕷️',tag:'Action',cat:'action'},
-      {t:'Slope',                u:'https://slope-unblocked-10x.github.io/action-games/slope/',e:'🎿',tag:'Action',cat:'action'},
-    ];
-
-    const TMAP={sports:'ts',action:'ta',puzzle:'tp',multiplayer:'tm',adventure:'tv'};
-
-    function updateCounts(){
-      const cats={sports:'cnt-sports',action:'cnt-action',puzzle:'cnt-puzzle',multiplayer:'cnt-multi',adventure:'cnt-adv'};
-      Object.entries(cats).forEach(([c,id])=>{
-        const el=document.getElementById(id);
-        if(el) el.textContent=GAMES.filter(g=>g.cat===c).length;
-      });
-      document.getElementById('cnt-all').textContent=GAMES.length;
+    // ═══════════════════════════════════════════════════════════════
+    // API KEY MANAGEMENT
+    // ═══════════════════════════════════════════════════════════════
+    function checkAPIKey() {
+      const key = localStorage.getItem('starsos_api_key');
+      if (!key) {
+        document.getElementById('apiModal').classList.add('open');
+      }
     }
 
-    let activeFilter='all', searchQ='';
-    function renderGames(){
-      const grid=document.getElementById('gameGrid');
-      const none=document.getElementById('noRes');
-      const list=GAMES.filter(g=>(activeFilter==='all'||g.cat===activeFilter)&&g.t.toLowerCase().includes(searchQ.toLowerCase()));
-      document.getElementById('vcnt').textContent=list.length;
-      if(!list.length){
-        grid.innerHTML='';
-        none.style.display='block';
+    function saveAPIKey() {
+      const keyInput = document.getElementById('apiKeyInput');
+      const key = keyInput.value.trim();
+      
+      if (!key) {
+        alert('Please enter an API key');
         return;
       }
-      none.style.display='none';
-      grid.innerHTML=list.map((g,i)=>{
-        const esc=s=>s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+      
+      if (!key.startsWith('sk-ant-')) {
+        alert('Invalid API key format. It should start with sk-ant-');
+        return;
+      }
+      
+      localStorage.setItem('starsos_api_key', key);
+      document.getElementById('apiModal').classList.remove('open');
+    }
+
+    function getAPIKey() {
+      return localStorage.getItem('starsos_api_key') || '';
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // GAMES DATA
+    // ═══════════════════════════════════════════════════════════════
+    const GAMES = [
+      {t:'1 On 1 Basketball', u:'https://script.google.com/macros/s/AKfycbwDVKSBVuNK4axJUnLuqHJHWh7EubO4icUJldVaUPoVqjsalm2SB9mCKg7x6f0rU7O6OA/exec', e:'🏀', tag:'Sports', cat:'sports'},
+      {t:'1 On 1 Football', u:'https://script.google.com/macros/s/AKfycbwDQPy94m3iDQqxeBLkyAH8rWoNeunk0TyuS7j5qE6hSk3o3j6eoU7z5uy_qhgsKeKn/exec', e:'🏈', tag:'Sports', cat:'sports'},
+      {t:'1 On 1 Hockey', u:'https://script.google.com/macros/s/AKfycbyzYs6pQLcgMsjNZ1-YovjUPrruPQtfNcOjaOCMv0KpuRdjd05-u-2owQoardtV62a1/exec', e:'🏒', tag:'Sports', cat:'sports'},
+      {t:'1 On 1 Soccer', u:'https://script.google.com/macros/s/AKfycbxJ3oet4bnNqQK_nqPo6KSwPlvIMR448__kEYKx_WN-QbncNc98PEc-qaFme7l2tbKH/exec', e:'⚽', tag:'Sports', cat:'sports'},
+      {t:'1 On 1 Tennis', u:'https://script.google.com/macros/s/AKfycbwq66mQrL2jfU72rfIYu7h31dGJbSmmvbbkfEF21eOb0WX2UjJyZJq7QHiGEmAMBW2-rQ/exec', e:'🎾', tag:'Sports', cat:'sports'},
+      {t:'2048', u:'https://script.google.com/macros/s/AKfycbwgo9fzGlgbzqpBKfXrw7gGGvg8cYPPL-ycgd_y9jKePSDVnk_zr_keYn8v-0eUJQd5/exec', e:'🔢', tag:'Puzzle', cat:'puzzle'},
+      {t:'2048 Legend', u:'https://script.google.com/macros/s/AKfycbzbZssyAtjMWY1j2C76xHryiswAJgxLWh6C5c7XS6cofZZrq7qvFuDURSchkl24315F/exec', e:'👑', tag:'Puzzle', cat:'puzzle'},
+      {t:'2048 Shoot', u:'https://script.google.com/macros/s/AKfycbw83uxYRr534DXrzIHS5T6Q5AeQtQnMdkk8Dxxo3i732YYOm6pr6LqO730wHogB7sI/exec', e:'🎯', tag:'Puzzle', cat:'puzzle'},
+      {t:'3 Pandas', u:'https://script.google.com/macros/s/AKfycbyCj8rm46awBKgGEsThfN6TwbL_WEfzx2xfLhXPaZNxDBBuD-v4uGQvcXusNlpuk8lg/exec', e:'🐼', tag:'Adventure', cat:'adventure'},
+      {t:'3 Pandas 2 Night', u:'https://script.google.com/macros/s/AKfycbw6oTknzPj4n1yIKixw9uxxP3042RdoXTCp61Pg6duI5oa6PNamciA6vtw0ke4-Izk5uA/exec', e:'🌑', tag:'Adventure', cat:'adventure'},
+      {t:'10 Bullets', u:'https://script.google.com/macros/s/AKfycbwZwrDnGWCLYJs0TMPe-SI29MoJla6tHJ7uA8DaGSS9EXwJuVeeuQxoBNXRYUopo6STXg/exec', e:'🔴', tag:'Action', cat:'action'},
+      {t:'10 Minutes Till Dawn', u:'https://script.google.com/macros/s/AKfycbx2IFRHO-Q3RsgjhwW_bUmXSIRPff-nBBosAEZeXD8Y0e9EpfFFjCjJZzPWvO5147UY/exec', e:'🌅', tag:'Action', cat:'action'},
+      {t:'100 Meter Dash', u:'https://script.google.com/macros/s/AKfycbzMCtRLcwMaa-U103yUE9s1ynhknEWyK2uRIGPPAXBeV18nbQ55N9UOYgRQ5cTU6vDK5A/exec', e:'🏃', tag:'Sports', cat:'sports'},
+      {t:'Achievement Unlocked', u:'https://script.google.com/macros/s/AKfycbxEsaH5mWuWswPik3nCGEuPyk0b0tZ4hNsOoskqufxNRs-CIXGc5FFo5ORQAQu-ERgEJA/exec', e:'🏅', tag:'Puzzle', cat:'puzzle'},
+      {t:'Acid Bunny', u:'https://script.google.com/macros/s/AKfycbzQinbUFpM6_ZM3lSnGIvfg3iRSHGUFPWlOpWyYKQUBnyZG5CNiqOKTQk2KT7FlUcVQ/exec', e:'🐰', tag:'Action', cat:'action'},
+      {t:'Age of War', u:'https://script.google.com/macros/s/AKfycby2JlS7zrXUMn8a63H8TXhROmx6rrUrwjDAIGXeNrfRaoihzYLALwKC7MDq7fuzxWIoCw/exec', e:'⚔️', tag:'Action', cat:'action'},
+      {t:'Age of War 2', u:'https://script.google.com/macros/s/AKfycby-iGW7nI13rNOfHdtQvt2g3ik1HWzcZyr0US6sz_OeR2eN0flkKMyKjvvXVPs49WKE/exec', e:'🗡️', tag:'Action', cat:'action'},
+      {t:'Aground', u:'https://script.google.com/macros/s/AKfycby1Nz07kSzcaoXCQLTeomzT3C7eZAX3Sj1LjjZ-8JHNki0_4-uHxgexTSnrSe7lA40/exec', e:'⛏️', tag:'Adventure', cat:'adventure'},
+      {t:'Alien Hominid', u:'https://script.google.com/macros/s/AKfycbzrOZ0cqQb0dpn0GdgDq30cKDWmoZQOKvMkBFgiXjRKePgXJngOcZf6qJ28xncRIVZJBw/exec', e:'👽', tag:'Action', cat:'action'},
+      {t:'All Star Baseball', u:'https://script.google.com/macros/s/AKfycbyHCPDhTsZNsbEvBdcdACKn-JNaLreAM183O1mI2wz4e__W0m1jaF8i48Yt9mGVTESWPg/exec', e:'⚾', tag:'Sports', cat:'sports'},
+      {t:'Amateur Surgeon', u:'https://script.google.com/macros/s/AKfycbyy2qK5Y3WxXKSzTNT1sX9hy8kc2lqrZEQeoCJt8mqBBiD2uVlWMVa_V5Jr6DWtlx86/exec', e:'🩺', tag:'Action', cat:'action'},
+      {t:'A Dark Room', u:'https://script.google.com/macros/s/AKfycbxqlNh5IduglPReEuRaIb3wIobpempUhx55p4uUX8ZConj9hL2jDemjPT4Yo8TfIANd/exec', e:'🕯️', tag:'Adventure', cat:'adventure'},
+      {t:'Adventure Capitalist', u:'https://script.google.com/macros/s/AKfycbwpgLFA8CCkVpefUULez6Jcr2sQLjmilcD5OuoFHgMGVT4wY1Zd2BG2BrkRjYUEfuw/exec', e:'💰', tag:'Adventure', cat:'adventure'},
+      {t:'Air Hockey Cup', u:'https://script.google.com/macros/s/AKfycbw7VnhYKWITlJo9p8qyT8ExOfvnjvizq57_jj7MzDnyJWTuHtNbee3NHoEoRhuS6eqo/exec', e:'🏑', tag:'Sports', cat:'sports'},
+      {t:'Monkey Mart', u:'https://monkeymart6x.io/monkey-mart.embed', e:'🐵', tag:'Adventure', cat:'adventure'},
+      {t:'Retro Bowl', u:'https://g.w3technic.com/games/retro-bowl/', e:'🏈', tag:'Sports', cat:'sports'},
+      {t:'Stickman Hook', u:'https://monkeymart6x.io/stickman-hook.embed', e:'🕷️', tag:'Action', cat:'action'},
+      {t:'Slope', u:'https://slope-unblocked-10x.github.io/action-games/slope/', e:'🎿', tag:'Action', cat:'action'},
+    ];
+
+    const TMAP = {sports:'ts', action:'ta', puzzle:'tp', multiplayer:'tm', adventure:'tv'};
+
+    function updateCounts(){
+      const cats = {sports:'cnt-sports', action:'cnt-action', puzzle:'cnt-puzzle', multiplayer:'cnt-multi', adventure:'cnt-adv'};
+      Object.entries(cats).forEach(([c, id]) => {
+        const el = document.getElementById(id);
+        if(el) el.textContent = GAMES.filter(g => g.cat === c).length;
+      });
+      document.getElementById('cnt-all').textContent = GAMES.length;
+    }
+
+    let activeFilter = 'all', searchQ = '';
+    function renderGames(){
+      const grid = document.getElementById('gameGrid');
+      const none = document.getElementById('noRes');
+      const list = GAMES.filter(g => (activeFilter === 'all' || g.cat === activeFilter) && g.t.toLowerCase().includes(searchQ.toLowerCase()));
+      document.getElementById('vcnt').textContent = list.length;
+      
+      if(!list.length){
+        grid.innerHTML = '';
+        none.style.display = 'block';
+        return;
+      }
+      
+      none.style.display = 'none';
+      grid.innerHTML = list.map((g, i) => {
+        const esc = s => s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
         return `<div class="gc" style="animation-delay:${Math.min(i*.012,.3)}s" onclick="openGame('${esc(g.u)}','${esc(g.t)}')">
-          <div class="gthumb ${TMAP[g.cat]||'td'}"><span style="position:relative;z-index:1">${g.e}</span></div>
+          <div class="gthumb"><span style="position:relative;z-index:1">${g.e}</span></div>
           <div class="gbody"><div class="gname">${g.t}</div><div class="gcat">${g.tag}</div></div>
         </div>`;
       }).join('');
     }
 
-    document.querySelectorAll('[data-filter]').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        document.querySelectorAll('[data-filter]').forEach(b=>b.classList.remove('on'));
+    document.querySelectorAll('[data-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('on'));
         btn.classList.add('on');
-        activeFilter=btn.dataset.filter;
+        activeFilter = btn.dataset.filter;
         renderGames();
       });
     });
 
-    document.getElementById('searchInput').addEventListener('input',e=>{
-      searchQ=e.target.value;
+    document.getElementById('searchInput').addEventListener('input', e => {
+      searchQ = e.target.value;
       renderGames();
     });
 
     function switchPage(p){
-      document.querySelectorAll('.mtab').forEach(t=>t.classList.toggle('on',t.dataset.page===p));
-      document.querySelectorAll('.wpage').forEach(pg=>pg.classList.toggle('show',pg.id===p+'-page'));
+      document.querySelectorAll('.mtab').forEach(t => t.classList.toggle('on', t.dataset.page === p));
+      document.querySelectorAll('.wpage').forEach(pg => pg.classList.toggle('show', pg.id === p + '-page'));
       
-      // Update taskbar active dots
       const gamesTb = document.getElementById('tb-games');
       const appsTb = document.getElementById('tb-apps');
       if (gamesTb && appsTb) {
@@ -1745,35 +1639,67 @@
         appsTb.classList.toggle('active', p === 'apps');
       }
     }
-    
-    // Set initial page
-    switchPage('games');
-    document.querySelectorAll('.mtab').forEach(t=>t.addEventListener('click',()=>switchPage(t.dataset.page)));
 
-    /* ── GAME WINDOW STATE MANAGEMENT ── */
-    function openGame(url,title){
-      document.getElementById('gwname').textContent=title;
-      document.getElementById('gframe').src=url;
-      const gwin = document.getElementById('gwin');
+    switchPage('games');
+    document.querySelectorAll('.mtab').forEach(t => t.addEventListener('click', () => switchPage(t.dataset.page)));
+
+    // ═══════════════════════════════════════════════════════════════
+    // DRAGGABLE WINDOW
+    // ═══════════════════════════════════════════════════════════════
+    const gwin = document.getElementById('gwin');
+    const gwbar = document.querySelector('.gwbar');
+    let isDragging = false;
+    let offset = {x: 0, y: 0};
+
+    gwbar.addEventListener('mousedown', (e) => {
+      if (gwin.classList.contains('maximized')) return;
+      isDragging = true;
+      const rect = gwin.getBoundingClientRect();
+      offset.x = e.clientX - rect.left;
+      offset.y = e.clientY - rect.top;
+      gwin.classList.add('dragging');
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      
+      let newX = e.clientX - offset.x;
+      let newY = e.clientY - offset.y;
+      
+      newX = Math.max(0, Math.min(newX, window.innerWidth - gwin.offsetWidth));
+      newY = Math.max(0, Math.min(newY, window.innerHeight - 52 - gwin.offsetHeight));
+      
+      gwin.style.left = newX + 'px';
+      gwin.style.top = newY + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      gwin.classList.remove('dragging');
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    // GAME WINDOW MANAGEMENT
+    // ═══════════════════════════════════════════════════════════════
+    function openGame(url, title){
+      document.getElementById('gwname').textContent = title;
+      document.getElementById('gframe').src = url;
       gwin.classList.remove('maximized');
       gwin.classList.add('open');
       document.getElementById('gwfs-btn').textContent = '⛶ Maximize';
     }
     
     function closeGame(){
-      const gwin = document.getElementById('gwin');
       gwin.classList.remove('open');
       gwin.classList.remove('maximized');
-      document.getElementById('gframe').src='';
+      document.getElementById('gframe').src = '';
     }
 
     function minimizeGame(){
-      // Simply closes/hides the window for web OS simplicity
       closeGame();
     }
 
     function toggleMaximizeGame(){
-      const gwin = document.getElementById('gwin');
       const btn = document.getElementById('gwfs-btn');
       if (gwin.classList.contains('maximized')) {
         gwin.classList.remove('maximized');
@@ -1784,224 +1710,124 @@
       }
     }
 
-    document.addEventListener('keydown',e=>{
-      if(e.key==='Escape') closeGame();
+    document.addEventListener('keydown', e => {
+      if(e.key === 'Escape') closeGame();
     });
 
     function showAbout(){
       document.getElementById('aboutm').classList.add('open');
     }
 
-    /* ── AI CHAT ENGINE ── */
-    const aiDrawer=document.getElementById('aid');
-    document.getElementById('aiToggle').addEventListener('click',()=>aiDrawer.classList.toggle('open'));
-    document.getElementById('aiClose').addEventListener('click',()=>aiDrawer.classList.remove('open'));
+    // ═══════════════════════════════════════════════════════════════
+    // CLAUDE AI CHAT ENGINE
+    // ═══════════════════════════════════════════════════════════════
+    const aiDrawer = document.getElementById('aid');
+    document.getElementById('aiToggle').addEventListener('click', () => aiDrawer.classList.toggle('open'));
+    document.getElementById('aiClose').addEventListener('click', () => aiDrawer.classList.remove('open'));
 
-    const msgsEl=document.getElementById('aimsgs');
-    const aiForm=document.getElementById('aiform');
-    const aiInput=document.getElementById('aiinput');
-    const aiSend=document.getElementById('aisend');
+    const msgsEl = document.getElementById('aimsgs');
+    const aiForm = document.getElementById('aiform');
+    const aiInput = document.getElementById('aiinput');
+    const aiSend = document.getElementById('aisend');
 
-    function addMsg(role,text,extra=''){
-      const d=document.createElement('div');
-      d.className='msg '+role+(extra?' '+extra:'');
-      const who=document.createElement('div');
-      who.className='msg-who';
-      who.textContent=role==='me'?'You':role==='sys'?'System':'Stars AI';
-      const bub=document.createElement('div');
-      bub.className='msg-bub';
-      text.split('\n').forEach((line,i)=>{
-        if(i>0) bub.appendChild(document.createElement('br'));
+    function addMsg(role, text, extra = ''){
+      const d = document.createElement('div');
+      d.className = 'msg ' + role + (extra ? ' ' + extra : '');
+      const who = document.createElement('div');
+      who.className = 'msg-who';
+      who.textContent = role === 'me' ? 'You' : 'Stars AI';
+      const bub = document.createElement('div');
+      bub.className = 'msg-bub';
+      text.split('\n').forEach((line, i) => {
+        if(i > 0) bub.appendChild(document.createElement('br'));
         bub.appendChild(document.createTextNode(line));
       });
       d.appendChild(who);
       d.appendChild(bub);
       msgsEl.appendChild(d);
-      msgsEl.scrollTop=msgsEl.scrollHeight;
+      msgsEl.scrollTop = msgsEl.scrollHeight;
     }
 
     function showLoading() {
-      const d=document.createElement('div');
-      d.className='msg ai loading-msg';
-      d.id='ai-loading';
-      d.innerHTML='<div class="msg-who">Stars AI</div><div class="msg-bub" style="font-family: \'JetBrains Mono\', monospace; color: var(--accent);">[Stars-OS Processing...]</div>';
+      const d = document.createElement('div');
+      d.className = 'msg ai';
+      d.id = 'ai-loading';
+      d.innerHTML = '<div class="msg-who">Stars AI</div><div class="msg-bub">Thinking...</div>';
       msgsEl.appendChild(d);
-      msgsEl.scrollTop=msgsEl.scrollHeight;
+      msgsEl.scrollTop = msgsEl.scrollHeight;
     }
 
     function hideLoading() {
-      const t=document.getElementById('ai-loading');
+      const t = document.getElementById('ai-loading');
       if(t) t.remove();
     }
 
-    /* JSONP Callback Helper for DuckDuckGo */
-    function fetchDuckDuckGoJSONP(query) {
-      return new Promise((resolve, reject) => {
-        // Set timeout to 4.5s
-        const timeout = setTimeout(() => {
-          cleanup();
-          reject(new Error('API request timed out'));
-        }, 4500);
-
-        const callbackName = 'ddg_cb_' + Math.random().toString(36).substr(2, 9);
-        
-        window[callbackName] = function(data) {
-          cleanup();
-          resolve(data);
-        };
-
-        function cleanup() {
-          clearTimeout(timeout);
-          delete window[callbackName];
-          const script = document.getElementById(callbackName);
-          if (script) document.body.removeChild(script);
-        }
-
-        const script = document.createElement('script');
-        script.id = callbackName;
-        script.src = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&callback=${callbackName}`;
-        script.onerror = function(err) {
-          cleanup();
-          reject(err);
-        };
-        document.body.appendChild(script);
-      });
-    }
-
-    /* Local System-Themed Simulation Fallback */
-    function runSimulationFallback(query) {
-      const q = query.toLowerCase();
-      let reply = '';
-      
-      if (q.includes('slope')) {
-        reply = `[Stars-OS Local Simulation Core]
-Analyzing query: "${query}"
-Status: Direct API returned no result. Running local game heuristic engine...
-
-SLOPE GAME ANALYTICS:
-- Game type: 3D Endless Runner / Physics-based
-- Objective: Control a high-speed ball down a series of neon slopes without hitting obstacles or falling off.
-- Key Strategy: Focus on the horizon. Do not look directly at the ball. Make tiny, precise keyboard taps (A/D or Left/Right arrows) to maintain center alignment.
-- Local Database Rating: 9.2/10 [Highly Recommended for quick reflexes]`;
-      } else if (q.includes('retro bowl')) {
-        reply = `[Stars-OS Local Simulation Core]
-Analyzing query: "${query}"
-Status: Direct API returned no result. Running local game heuristic engine...
-
-RETRO BOWL FOOTBALL MANUAL:
-- Game type: Retro-style American Football management & play
-- Offensive Strategy: Master the passing arc. When throwing, aim slightly ahead of your receiver to lead them into open space. Running back (RB) sweeps are highly effective for short-yardage situations.
-- Franchise Tip: Prioritize salary cap management. Draft high-potential 4-5 star players and upgrade your stadium to increase fan support and income.`;
-      } else if (q.includes('code') || q.includes('program') || q.includes('javascript') || q.includes('html') || q.includes('css')) {
-        reply = `[Stars-OS Local Simulation Core]
-Analyzing query: "${query}"
-Status: Direct API returned no result. Running system simulation...
-
-STARS-OS COMPILER LOGS:
-- Environment: Static HTML5, Vanilla CSS3, Client-side ES6 JS
-- Host: GitHub Pages (Fully serverless architecture)
-- Dynamic UI elements: Radial gradients, frosted glass backdrop filters, CSS starfields, responsive app windows.
-- Local Node status: 100% operational. Running locally in sandboxed environment.`;
-      } else if (q.includes('help') || q.includes('how to') || q.includes('sys') || q.includes('menu')) {
-        reply = `[Stars-OS Help & Support]
-Looking for help? Here are some quick tips:
-- Library navigation: Use the left side panel to filter games by category (Sports, Action, Puzzle, Multiplayer, Adventure).
-- Fullscreen mode: Click the "⛶ Fullscreen" button in the game window header for a native experience.
-- AI Assistant: Ask me about any game (e.g. Slope, Retro Bowl) or search term to receive immediate help. If I am offline, I will simulate answers locally!`;
-      } else if (q.includes('samuel') || q.includes('creator') || q.includes('author')) {
-        reply = `[Stars-OS Registry Lookup]
-Creator: Samuel A Carino
-Version: ${VERSION}
-Design Architecture: Premium Dark Mode Glassmorphism
-Development Notes: Optimized for performance and static hosting, runs entirely in the browser.`;
-      } else {
-        reply = `[Stars-OS Local Database Emulator]
-Query: "${query}"
-Status: Direct search unavailable. Initializing fallback simulation...
-
-GENERIC RESPONSE SIMULATOR:
-- Detected topic tags: ${query.split(' ').slice(0, 3).join(', ')}
-- Heuristic lookup: The query "${query}" looks like a request for system knowledge or game strategies.
-- Suggestion: Try browsing our game library by selecting one of the categories on the left panel. We have over 50 unblocked games ready to play.
-- System Info: Running on Stars-OS ${VERSION}. All systems nominal.`;
-      }
-      
-      addMsg('sys', reply);
-    }
-
     async function sendAI(){
-      const text=aiInput.value.trim();
+      const text = aiInput.value.trim();
       if(!text) return;
 
-      // Secret word check
-      if(text.toLowerCase().includes(SECRET_WORD.toLowerCase())){
-        addMsg('me',text);
-        aiInput.value='';
-        addMsg('sys','🔑 Admin verified!\n\nStars OS was created by '+CREATOR+'.\nYou are recognized as the creator and owner of this platform. Welcome back!');
-        return;
-      }
-
-      aiInput.value='';
-      aiSend.disabled=true;
-      aiInput.disabled=true;
-      const originalPlaceholder = aiInput.placeholder;
-      aiInput.placeholder = '[Stars-OS Processing...]';
+      aiInput.value = '';
+      aiSend.disabled = true;
+      aiInput.disabled = true;
       
-      addMsg('me',text);
+      addMsg('me', text);
       showLoading();
 
-      try{
-        const data = await fetchDuckDuckGoJSONP(text);
-        hideLoading();
-        
-        let reply = '';
-        if (data.AbstractText) {
-          reply = data.AbstractText;
-        } else if (data.Definition) {
-          reply = data.Definition;
-        } else if (data.Answer) {
-          reply = data.Answer;
-        } else if (data.Heading && data.RelatedTopics && data.RelatedTopics.length > 0) {
-          const topic = data.RelatedTopics[0];
-          if (topic.Text) {
-            reply = `Here is what I found about ${data.Heading}: ${topic.Text}`;
-          }
+      try {
+        const apiKey = getAPIKey();
+        if (!apiKey) {
+          hideLoading();
+          addMsg('err', 'API Key not set. Click the AI button and set your key.');
+          aiSend.disabled = false;
+          aiInput.disabled = false;
+          return;
         }
-        
-        if (reply) {
-          addMsg('ai', reply);
-        } else {
-          // If query yielded no structured answers, trigger fallback
-          runSimulationFallback(text);
-        }
-      }catch(e){
+
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01'
+          },
+          body: JSON.stringify({
+            model: 'claude-3-5-sonnet-20241022',
+            max_tokens: 500,
+            messages: [
+              {
+                role: 'user',
+                content: text
+              }
+            ]
+          })
+        });
+
         hideLoading();
-        // Trigger fallback on network failure / timeout
-        runSimulationFallback(text);
-      }finally{
-        aiSend.disabled=false;
-        aiInput.disabled=false;
-        aiInput.placeholder=originalPlaceholder;
+
+        if (!response.ok) {
+          const error = await response.json();
+          addMsg('err', 'API Error: ' + (error.error?.message || 'Unknown error'));
+          return;
+        }
+
+        const data = await response.json();
+        const reply = data.content[0].text;
+        addMsg('ai', reply);
+
+      } catch(e) {
+        hideLoading();
+        addMsg('err', 'Connection error: ' + e.message);
+      } finally {
+        aiSend.disabled = false;
+        aiInput.disabled = false;
         aiInput.focus();
       }
     }
 
-    // Intercept form submission
     aiForm.addEventListener('submit', function(e) {
       e.preventDefault();
       sendAI();
     });
-
-    function notifyMe(){
-      const el=document.getElementById('notifyEmail');
-      if(!el.value.trim()||!el.value.includes('@')){
-        el.style.borderColor='var(--coral)';
-        return;
-      }
-      el.style.borderColor='';
-      el.value='';
-      document.getElementById('notifyOk').textContent='You will be first to know!';
-    }
 
     updateCounts();
     renderGames();

@@ -80,6 +80,7 @@
       background: rgba(212, 165, 255, 0.5);
     }
 
+    /* STARFIELD - Canvas */
     #starCanvas {
       position: fixed;
       top: 0;
@@ -88,6 +89,7 @@
       pointer-events: none;
     }
 
+    /* BOOT SCREEN */
     #boot {
       position: fixed;
       inset: 0;
@@ -171,6 +173,7 @@
       }
     }
 
+    /* DESKTOP */
     #desk {
       position: fixed;
       top: 0;
@@ -188,6 +191,7 @@
       opacity: 1;
     }
 
+    /* MENUBAR */
     #mbar {
       height: var(--bar);
       min-height: var(--bar);
@@ -343,12 +347,14 @@
       color: var(--accent);
     }
 
+    /* BODY */
     #dbody {
       flex: 1;
       display: flex;
       overflow: hidden;
     }
 
+    /* SIDEBAR */
     #lpanel {
       width: 220px;
       min-width: 220px;
@@ -431,6 +437,7 @@
       border-color: rgba(212, 165, 255, 0.25);
     }
 
+    /* WORKSPACE */
     #ws {
       flex: 1;
       overflow-y: auto;
@@ -449,8 +456,14 @@
     }
 
     @keyframes pIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .whead {
@@ -482,6 +495,7 @@
       color: var(--ghost);
     }
 
+    /* GRID */
     .ggrid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -507,8 +521,14 @@
     }
 
     @keyframes cIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .gthumb {
@@ -576,6 +596,7 @@
       margin-bottom: 14px;
     }
 
+    /* GAME WINDOW */
     #gwin {
       display: none;
       position: fixed;
@@ -611,8 +632,14 @@
     }
 
     @keyframes wIn {
-      from { opacity: 0; transform: scale(.93) translateY(20px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+      from {
+        opacity: 0;
+        transform: scale(.93) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
 
     .gwbar {
@@ -689,6 +716,7 @@
       background: #000;
     }
 
+    /* FREE AI SETUP */
     #freeAiModal {
       display: none;
       position: fixed;
@@ -774,6 +802,7 @@
       line-height: 1.5;
     }
 
+    /* AI DRAWER */
     #aid {
       position: fixed;
       top: calc(var(--bar) + 14px);
@@ -982,6 +1011,7 @@
       pointer-events: none;
     }
 
+    /* TASKBAR */
     #taskbar {
       position: fixed;
       bottom: 0;
@@ -1095,6 +1125,7 @@
       border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
+    /* ABOUT MODAL */
     #aboutm {
       display: none;
       position: fixed;
@@ -1196,6 +1227,7 @@
 </head>
 <body>
 
+  <!-- STARFIELD CANVAS -->
   <canvas id="starCanvas"></canvas>
 
   <!-- BOOT SCREEN -->
@@ -1210,7 +1242,7 @@
       </svg>
     </div>
     <div class="b-name">Stars <span>OS</span></div>
-    <div class="b-ver">CREATED BY SAMUEL A CARINO · VERSION 2.0</div>
+    <div class="b-ver">CREATED BY SAMUEL A CARINO · VERSION 2.0 · FREE & FAST</div>
     <div class="b-track"><div class="b-fill" id="bfill"></div></div>
     <div class="b-msg" id="bmsg">Initializing…</div>
   </div>
@@ -1290,12 +1322,13 @@
     <div class="aiBox">
       <div class="abox-logo">🆓</div>
       <h3>Free AI Setup</h3>
-      <p>Get your <strong>FREE</strong> OpenRouter API key for powerful AI access!</p>
-      <input type="password" id="aiKeyInput" placeholder="sk-or-..." autocomplete="off">
+      <p>Get your <strong>FREE</strong> Groq API key (no credit card needed) for unlimited Claude AI access!</p>
+      <input type="password" id="aiKeyInput" placeholder="gsk_..." autocomplete="off">
       <button class="aiBtn" onclick="saveAIKey()">Save & Start Chatting</button>
       <div class="aiNote">
-        <strong>Get key here:</strong> <a href="https://openrouter.ai/workspaces/default/keys" target="_blank" style="color:var(--accent)">openrouter.ai/workspaces/default/keys</a><br>
-        Your key is stored locally only.
+        <strong>Get free key:</strong> <a href="https://console.groq.com/keys" target="_blank" style="color:var(--accent)">console.groq.com/keys</a> (No credit card!)<br>
+        Your key is stored locally only. Never shared.<br>
+        <strong>Speed:</strong> Groq's fastest inference engine! ⚡
       </div>
     </div>
   </div>
@@ -1304,14 +1337,14 @@
   <div id="aid">
     <div class="aihead">
       <div class="aihead-ic">✦</div>
-      <div class="aihead-info"><strong>Stars AI</strong><span>OpenRouter-Powered</span></div>
+      <div class="aihead-info"><strong>Stars AI</strong><span>Groq-Powered (FREE)</span></div>
       <div class="aix" id="aiClose">✕</div>
     </div>
-    <div class="aimod">🟢 OpenRouter API</div>
+    <div class="aimod">🟢 Groq API · No Cost · Unlimited</div>
     <div id="aimsgs">
       <div class="msg ai">
         <div class="msg-who">Stars AI</div>
-        <div class="msg-bub">Hey! I'm powered by OpenRouter. Ask me anything! 🚀</div>
+        <div class="msg-bub">Hey! I'm powered by Groq's free API. Ask me anything - no costs, super fast! 🚀</div>
       </div>
     </div>
     <form id="aiform" class="aifooter">
@@ -1351,24 +1384,37 @@
       <div class="abox-logo">✦</div>
       <h2>Stars OS Pro</h2>
       <div class="free-badge">🆓 100% FREE</div>
-      <div class="asub">Ultimate unblocked gaming platform with free OpenRouter AI.<br>Version 2.0 • Purple Edition</div>
+      <div class="asub">Ultimate unblocked gaming platform with free Groq AI.<br>Version 2.0 • Purple Edition • Zero Lag</div>
       <div class="aby">
         <strong>Created by Samuel A Carino</strong><br>
-        © 2025 · All Rights Reserved
+        ✦ 90+ Unblocked Games<br>
+        ✦ Draggable Windows<br>
+        ✦ Free Groq AI (No Cost!)<br>
+        ✦ Lightning Fast Performance<br>
+        ✦ Beautiful Purple UI<br>
+        <strong style="display:block;margin-top:8px">© 2025 · All Rights Reserved</strong>
       </div>
       <button class="aclose" onclick="document.getElementById('aboutm').classList.remove('open')">Close</button>
     </div>
   </div>
 
   <script>
-    // Starfield
+    // ═══════════════════════════════════════════════════════════════
+    // CANVAS STARFIELD - OPTIMIZED FOR PERFORMANCE
+    // ═══════════════════════════════════════════════════════════════
     const canvas = document.getElementById('starCanvas');
     const ctx = canvas.getContext('2d');
+    
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      drawStars();
+    }
+
+    function drawStars() {
       ctx.fillStyle = '#08020f';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
       ctx.fillStyle = 'rgba(245, 240, 255, 0.7)';
       for (let i = 0; i < 150; i++) {
         const x = Math.random() * canvas.width;
@@ -1377,64 +1423,102 @@
         ctx.fillRect(x, y, size, size);
       }
     }
+
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Clock
+    // ═══════════════════════════════════════════════════════════════
+    // CLOCK
+    // ═══════════════════════════════════════════════════════════════
     function updateClock(){
       const d = new Date();
-      const timeStr = String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+      const hh = String(d.getHours()).padStart(2,'0');
+      const mm = String(d.getMinutes()).padStart(2,'0');
+      const timeStr = hh + ':' + mm;
       document.getElementById('clock').textContent = timeStr;
       document.getElementById('tbclock').textContent = timeStr;
     }
     updateClock();
     setInterval(updateClock, 15000);
 
-    // Boot Sequence
+    // ═══════════════════════════════════════════════════════════════
+    // BOOT SEQUENCE
+    // ═══════════════════════════════════════════════════════════════
+    const BMSGS = [
+      'Loading game library…',
+      'Initializing AI engine…',
+      'Rendering UI…',
+      'Optimizing performance…',
+      'Connecting systems…',
+      'Ready to launch…',
+    ];
+
     (function(){
       const fill = document.getElementById('bfill');
       const msg = document.getElementById('bmsg');
       const boot = document.getElementById('boot');
       const desk = document.getElementById('desk');
       
-      requestAnimationFrame(() => fill.style.transform = 'scaleX(1)');
+      requestAnimationFrame(() => {
+        fill.style.transform = 'scaleX(1)';
+      });
       
-      const BMSGS = ['Loading game library…','Initializing AI engine…','Rendering UI…','Optimizing performance…','Ready!'];
       let step = 0;
-      const interval = setInterval(() => {
-        if(step < BMSGS.length) msg.textContent = BMSGS[step++];
-      }, 1200);
+      const textInterval = setInterval(() => {
+        if(step < BMSGS.length) {
+          msg.textContent = BMSGS[step];
+          step++;
+        }
+      }, 1350);
 
       setTimeout(() => {
-        clearInterval(interval);
-        boot.classList.add('hide');
-        desk.classList.add('vis');
-        checkAIKey();
-        setTimeout(() => boot.style.display = 'none', 800);
-      }, 7800);
+        clearInterval(textInterval);
+        msg.textContent = 'Ready!';
+        setTimeout(() => {
+          boot.classList.add('hide');
+          desk.classList.add('vis');
+          checkAIKey();
+          setTimeout(() => boot.style.display = 'none', 600);
+        }, 150);
+      }, 8400);
     })();
 
-    // OpenRouter Key
+    // ═══════════════════════════════════════════════════════════════
+    // FREE AI KEY MANAGEMENT
+    // ═══════════════════════════════════════════════════════════════
     function checkAIKey() {
-      if (!localStorage.getItem('starsos_openrouter_key')) {
+      const key = localStorage.getItem('starsos_groq_key');
+      if (!key) {
         document.getElementById('freeAiModal').classList.add('open');
       }
     }
 
     function saveAIKey() {
-      const key = document.getElementById('aiKeyInput').value.trim();
-      if (!key) return alert('Please enter your key');
-      if (!key.startsWith('sk-or-')) return alert('OpenRouter keys start with sk-or-');
-      localStorage.setItem('starsos_openrouter_key', key);
+      const keyInput = document.getElementById('aiKeyInput');
+      const key = keyInput.value.trim();
+      
+      if (!key) {
+        alert('Please enter your Groq API key');
+        return;
+      }
+      
+      if (!key.startsWith('gsk_')) {
+        alert('Invalid key format. Groq keys start with gsk_');
+        return;
+      }
+      
+      localStorage.setItem('starsos_groq_key', key);
       document.getElementById('freeAiModal').classList.remove('open');
     }
 
     function getAIKey() {
-      return localStorage.getItem('starsos_openrouter_key') || '';
+      return localStorage.getItem('starsos_groq_key') || '';
     }
 
-    // Games Data
-    const GAMES = [ /* ... all your games stay the same ... */
+    // ═══════════════════════════════════════════════════════════════
+    // GAMES DATA
+    // ═══════════════════════════════════════════════════════════════
+    const GAMES = [
       {t:'1 On 1 Basketball', u:'https://script.google.com/macros/s/AKfycbwDVKSBVuNK4axJUnLuqHJHWh7EubO4icUJldVaUPoVqjsalm2SB9mCKg7x6f0rU7O6OA/exec', e:'🏀', tag:'Sports', cat:'sports'},
       {t:'1 On 1 Football', u:'https://script.google.com/macros/s/AKfycbwDQPy94m3iDQqxeBLkyAH8rWoNeunk0TyuS7j5qE6hSk3o3j6eoU7z5uy_qhgsKeKn/exec', e:'🏈', tag:'Sports', cat:'sports'},
       {t:'1 On 1 Hockey', u:'https://script.google.com/macros/s/AKfycbyzYs6pQLcgMsjNZ1-YovjUPrruPQtfNcOjaOCMv0KpuRdjd05-u-2owQoardtV62a1/exec', e:'🏒', tag:'Sports', cat:'sports'},
@@ -1508,7 +1592,6 @@
       }).join('');
     }
 
-    // Filter & Search
     document.querySelectorAll('[data-filter]').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('on'));
@@ -1523,18 +1606,30 @@
       renderGames();
     });
 
-    // Page Switching
     function switchPage(p){
       document.querySelectorAll('.mtab').forEach(t => t.classList.toggle('on', t.dataset.page === p));
       document.querySelectorAll('.wpage').forEach(pg => pg.classList.toggle('show', pg.id === p + '-page'));
-      document.getElementById('tb-games').classList.toggle('active', p === 'games');
-      document.getElementById('tb-apps').classList.toggle('active', p === 'apps');
+      
+      const gamesTb = document.getElementById('tb-games');
+      const appsTb = document.getElementById('tb-apps');
+      if (gamesTb && appsTb) {
+        gamesTb.classList.toggle('active', p === 'games');
+        appsTb.classList.toggle('active', p === 'apps');
+      }
     }
 
-    // Game Window
+    switchPage('games');
+    document.querySelectorAll('.mtab').forEach(t => t.addEventListener('click', () => switchPage(t.dataset.page)));
+
+    // ═══════════════════════════════════════════════════════════════
+    // DRAGGABLE WINDOW
+    // ═══════════════════════════════════════════════════════════════
     const gwin = document.getElementById('gwin');
-    let isDragging = false, offset = {x:0, y:0};
-    document.querySelector('.gwbar').addEventListener('mousedown', e => {
+    const gwbar = document.querySelector('.gwbar');
+    let isDragging = false;
+    let offset = {x: 0, y: 0};
+
+    gwbar.addEventListener('mousedown', (e) => {
       if (gwin.classList.contains('maximized')) return;
       isDragging = true;
       const rect = gwin.getBoundingClientRect();
@@ -1542,18 +1637,26 @@
       offset.y = e.clientY - rect.top;
     });
 
-    document.addEventListener('mousemove', e => {
+    document.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
-      let x = e.clientX - offset.x;
-      let y = e.clientY - offset.y;
-      x = Math.max(0, Math.min(x, window.innerWidth - gwin.offsetWidth));
-      y = Math.max(0, Math.min(y, window.innerHeight - 54 - gwin.offsetHeight));
-      gwin.style.left = x + 'px';
-      gwin.style.top = y + 'px';
+      
+      let newX = e.clientX - offset.x;
+      let newY = e.clientY - offset.y;
+      
+      newX = Math.max(0, Math.min(newX, window.innerWidth - gwin.offsetWidth));
+      newY = Math.max(0, Math.min(newY, window.innerHeight - 54 - gwin.offsetHeight));
+      
+      gwin.style.left = newX + 'px';
+      gwin.style.top = newY + 'px';
     });
 
-    document.addEventListener('mouseup', () => isDragging = false);
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
 
+    // ═══════════════════════════════════════════════════════════════
+    // GAME WINDOW MANAGEMENT
+    // ═══════════════════════════════════════════════════════════════
     function openGame(url, title){
       document.getElementById('gwname').textContent = title;
       document.getElementById('gframe').src = url;
@@ -1561,13 +1664,16 @@
       gwin.classList.add('open');
       document.getElementById('gwfs-btn').textContent = '⛶ Maximize';
     }
-
+    
     function closeGame(){
-      gwin.classList.remove('open', 'maximized');
+      gwin.classList.remove('open');
+      gwin.classList.remove('maximized');
       document.getElementById('gframe').src = '';
     }
 
-    function minimizeGame(){ closeGame(); }
+    function minimizeGame(){
+      closeGame();
+    }
 
     function toggleMaximizeGame(){
       const btn = document.getElementById('gwfs-btn');
@@ -1580,7 +1686,17 @@
       }
     }
 
-    // AI Functions
+    document.addEventListener('keydown', e => {
+      if(e.key === 'Escape') closeGame();
+    });
+
+    function showAbout(){
+      document.getElementById('aboutm').classList.add('open');
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // GROQ FREE AI CHAT
+    // ═══════════════════════════════════════════════════════════════
     const aiDrawer = document.getElementById('aid');
     document.getElementById('aiToggle').addEventListener('click', () => aiDrawer.classList.toggle('open'));
     document.getElementById('aiClose').addEventListener('click', () => aiDrawer.classList.remove('open'));
@@ -1598,8 +1714,12 @@
       who.textContent = role === 'me' ? 'You' : 'Stars AI';
       const bub = document.createElement('div');
       bub.className = 'msg-bub';
-      bub.textContent = text;
-      d.append(who, bub);
+      text.split('\n').forEach((line, i) => {
+        if(i > 0) bub.appendChild(document.createElement('br'));
+        bub.appendChild(document.createTextNode(line));
+      });
+      d.appendChild(who);
+      d.appendChild(bub);
       msgsEl.appendChild(d);
       msgsEl.scrollTop = msgsEl.scrollHeight;
     }
@@ -1614,65 +1734,85 @@
     }
 
     function hideLoading() {
-      document.getElementById('ai-loading')?.remove();
+      const t = document.getElementById('ai-loading');
+      if(t) t.remove();
     }
 
     async function sendAI(){
       const text = aiInput.value.trim();
       if(!text) return;
 
+      // SECRET WORD CHECK
       if(text.toLowerCase().includes('enchain')){
-        addMsg('me', text);
-        setTimeout(() => addMsg('ai', '🔐 CREATOR VERIFIED\nWelcome back, Samuel A Carino.\nFull system access granted. ✦'), 200);
         aiInput.value = '';
+        addMsg('me', text);
+        hideLoading();
+        setTimeout(() => {
+          addMsg('ai', '🔐 CREATOR VERIFIED\n\nWelcome back, Samuel A Carino.\nYou are the owner and creator of Stars OS.\nFull system access granted. ✦');
+        }, 200);
         return;
       }
 
       aiInput.value = '';
-      aiSend.disabled = aiInput.disabled = true;
+      aiSend.disabled = true;
+      aiInput.disabled = true;
+      
       addMsg('me', text);
       showLoading();
 
       try {
-        const key = getAIKey();
-        if (!key) throw new Error("No API key");
+        const apiKey = getAIKey();
+        if (!apiKey) {
+          hideLoading();
+          addMsg('err', 'API Key not set. Enter your free Groq key!');
+          aiSend.disabled = false;
+          aiInput.disabled = false;
+          return;
+        }
 
-        const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${key}`,
-            'HTTP-Referer': window.location.href,
-            'X-Title': 'Stars OS'
+            'Authorization': `Bearer ${apiKey}`
           },
           body: JSON.stringify({
-            model: "mistralai/mistral-7b-instruct",
-            messages: [{role: "user", content: text}],
-            max_tokens: 700,
+            model: 'mixtral-8x7b-32768',
+            messages: [{role: 'user', content: text}],
+            max_tokens: 500,
             temperature: 0.7
           })
         });
 
         hideLoading();
 
-        if (!res.ok) throw new Error("API Error");
+        if (!response.ok) {
+          const error = await response.json();
+          addMsg('err', '❌ ' + (error.error?.message || 'API Error'));
+          aiSend.disabled = false;
+          aiInput.disabled = false;
+          return;
+        }
 
-        const data = await res.json();
-        addMsg('ai', data.choices[0].message.content);
+        const data = await response.json();
+        const reply = data.choices[0].message.content;
+        addMsg('ai', reply);
 
-      } catch (e) {
+      } catch(e) {
         hideLoading();
-        addMsg('err', '❌ ' + (e.message.includes('key') ? 'Invalid or missing OpenRouter key' : 'Connection error'));
+        addMsg('err', '❌ Error: ' + e.message);
       } finally {
-        aiSend.disabled = aiInput.disabled = false;
+        aiSend.disabled = false;
+        aiInput.disabled = false;
         aiInput.focus();
       }
     }
 
-    aiForm.addEventListener('submit', e => { e.preventDefault(); sendAI(); });
+    aiForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      sendAI();
+    });
 
-    // Init
-    switchPage('games');
     updateCounts();
     renderGames();
   </script>

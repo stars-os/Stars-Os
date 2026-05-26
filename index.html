@@ -99,44 +99,48 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 45px;
     }
 
     .b-ring {
-      width: 80px;
-      height: 80px;
-      animation: spin 8s linear infinite;
-      margin-bottom: 20px;
+      width: 100px;
+      height: 100px;
+      animation: spin 6s linear infinite;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .b-name {
-      font-size: 2.2rem;
+      font-size: 3rem;
       font-weight: 800;
-      letter-spacing: -.02em;
-      margin-bottom: 3px;
+      letter-spacing: -.03em;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #d4a5ff, #c4a1ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .b-name span {
       color: var(--accent);
-      text-shadow: 0 0 20px var(--accent-glow);
     }
 
     .b-ver {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .7rem;
+      font-size: .75rem;
       color: var(--dim);
       letter-spacing: .14em;
-      margin-bottom: 50px;
+      margin-bottom: 30px;
     }
 
     .b-track {
-      width: 210px;
-      height: 3px;
-      background: var(--ghost);
-      border-radius: 2px;
+      width: 300px;
+      height: 5px;
+      background: rgba(212, 165, 255, 0.15);
+      border-radius: 5px;
       overflow: hidden;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 25px rgba(212, 165, 255, 0.25);
     }
 
     .b-fill {
@@ -144,21 +148,52 @@
       width: 100%;
       transform: scaleX(0);
       transform-origin: left;
-      background: linear-gradient(90deg, var(--accent), var(--violet));
-      border-radius: 2px;
-      box-shadow: 0 0 15px var(--accent-glow);
-      transition: transform 9s ease;
+      background: linear-gradient(90deg, #d4a5ff 0%, #c4a1ff 50%, #b88dff 100%);
+      border-radius: 5px;
+      box-shadow: 0 0 25px var(--accent-glow), inset 0 0 10px rgba(255, 255, 255, 0.3);
+      transition: transform 8s ease;
       will-change: transform;
     }
 
     .b-msg {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .7rem;
-      color: var(--dim);
-      letter-spacing: .05em;
-      height: 18px;
+      font-size: .82rem;
+      color: var(--accent);
+      letter-spacing: .06em;
+      height: 22px;
       text-align: center;
-      margin-bottom: 34px;
+    }
+
+    .b-dots {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    .b-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(212, 165, 255, 0.5);
+      animation: bdot 1.4s infinite;
+      box-shadow: 0 0 8px rgba(212, 165, 255, 0.6);
+    }
+
+    .b-dot:nth-child(2) { animation-delay: .2s; }
+    .b-dot:nth-child(3) { animation-delay: .4s; }
+
+    @keyframes bdot {
+      0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.4);
+        background: var(--accent);
+        box-shadow: 0 0 15px var(--accent-glow);
+      }
     }
 
     #boot.hide {
@@ -169,7 +204,7 @@
     @keyframes bOut {
       to {
         opacity: 0;
-        transform: scale(1.02);
+        transform: scale(1.05);
       }
     }
 
@@ -1242,9 +1277,10 @@
       </svg>
     </div>
     <div class="b-name">Stars <span>OS</span></div>
-    <div class="b-ver">CREATED BY SAMUEL A CARINO · VERSION 2.0 · FREE & FAST</div>
+    <div class="b-ver">BY SAMUEL A CARINO • FREE & FAST • V2.0</div>
     <div class="b-track"><div class="b-fill" id="bfill"></div></div>
     <div class="b-msg" id="bmsg">Initializing…</div>
+    <div class="b-dots"><div class="b-dot"></div><div class="b-dot"></div><div class="b-dot"></div></div>
   </div>
 
   <!-- DESKTOP -->
@@ -1322,13 +1358,13 @@
     <div class="aiBox">
       <div class="abox-logo">🆓</div>
       <h3>Free AI Setup</h3>
-      <p>Get your <strong>FREE</strong> Groq API key (no credit card needed) for unlimited Claude AI access!</p>
-      <input type="password" id="aiKeyInput" placeholder="gsk_..." autocomplete="off">
+      <p>Get a <strong>FREE</strong> OpenRouter API key for unlimited Claude AI access! No credit card needed.</p>
+      <input type="password" id="aiKeyInput" placeholder="sk-or-..." autocomplete="off">
       <button class="aiBtn" onclick="saveAIKey()">Save & Start Chatting</button>
       <div class="aiNote">
-        <strong>Get free key:</strong> <a href="https://console.groq.com/keys" target="_blank" style="color:var(--accent)">console.groq.com/keys</a> (No credit card!)<br>
-        Your key is stored locally only. Never shared.<br>
-        <strong>Speed:</strong> Groq's fastest inference engine! ⚡
+        <strong>Get free key:</strong> <a href="https://openrouter.ai/workspaces/default/keys" target="_blank" style="color:var(--accent)">openrouter.ai/keys</a> (No credit card!)<br>
+        Free tier includes unlimited requests for many models!<br>
+        Your key is stored locally only. Never shared.
       </div>
     </div>
   </div>
@@ -1340,11 +1376,11 @@
       <div class="aihead-info"><strong>Stars AI</strong><span>Groq-Powered (FREE)</span></div>
       <div class="aix" id="aiClose">✕</div>
     </div>
-    <div class="aimod">🟢 Groq API · No Cost · Unlimited</div>
+    <div class="aimod">🟢 OpenRouter API · Free Tier · Unlimited</div>
     <div id="aimsgs">
       <div class="msg ai">
         <div class="msg-who">Stars AI</div>
-        <div class="msg-bub">Hey! I'm powered by Groq's free API. Ask me anything - no costs, super fast! 🚀</div>
+        <div class="msg-bub">Hey! I'm powered by OpenRouter's free API. Ask me anything - completely free, super fast! 🚀</div>
       </div>
     </div>
     <form id="aiform" class="aifooter">
@@ -1384,12 +1420,12 @@
       <div class="abox-logo">✦</div>
       <h2>Stars OS Pro</h2>
       <div class="free-badge">🆓 100% FREE</div>
-      <div class="asub">Ultimate unblocked gaming platform with free Groq AI.<br>Version 2.0 • Purple Edition • Zero Lag</div>
+      <div class="asub">Ultimate unblocked gaming platform with free OpenRouter AI.<br>Version 2.0 • Purple Edition • Zero Lag • Completely FREE</div>
       <div class="aby">
         <strong>Created by Samuel A Carino</strong><br>
-        ✦ 90+ Unblocked Games<br>
+        ✦ 37+ Unblocked Games<br>
         ✦ Draggable Windows<br>
-        ✦ Free Groq AI (No Cost!)<br>
+        ✦ Free OpenRouter AI (No Cost!)<br>
         ✦ Lightning Fast Performance<br>
         ✦ Beautiful Purple UI<br>
         <strong style="display:block;margin-top:8px">© 2025 · All Rights Reserved</strong>
@@ -1484,10 +1520,10 @@
     })();
 
     // ═══════════════════════════════════════════════════════════════
-    // FREE AI KEY MANAGEMENT
+    // FREE AI KEY MANAGEMENT (OpenRouter)
     // ═══════════════════════════════════════════════════════════════
     function checkAIKey() {
-      const key = localStorage.getItem('starsos_groq_key');
+      const key = localStorage.getItem('starsos_or_key');
       if (!key) {
         document.getElementById('freeAiModal').classList.add('open');
       }
@@ -1498,21 +1534,21 @@
       const key = keyInput.value.trim();
       
       if (!key) {
-        alert('Please enter your Groq API key');
+        alert('Please enter your OpenRouter API key');
         return;
       }
       
-      if (!key.startsWith('gsk_')) {
-        alert('Invalid key format. Groq keys start with gsk_');
+      if (!key.startsWith('sk-')) {
+        alert('Invalid key format. OpenRouter keys start with sk-');
         return;
       }
       
-      localStorage.setItem('starsos_groq_key', key);
+      localStorage.setItem('starsos_or_key', key);
       document.getElementById('freeAiModal').classList.remove('open');
     }
 
     function getAIKey() {
-      return localStorage.getItem('starsos_groq_key') || '';
+      return localStorage.getItem('starsos_or_key') || '';
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -1764,20 +1800,21 @@
         const apiKey = getAIKey();
         if (!apiKey) {
           hideLoading();
-          addMsg('err', 'API Key not set. Enter your free Groq key!');
+          addMsg('err', 'API Key not set. Get your free OpenRouter key at openrouter.ai/keys');
           aiSend.disabled = false;
           aiInput.disabled = false;
           return;
         }
 
-        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        const response = await fetch('https://openrouter.io/api/v1/chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
+            'Authorization': `Bearer ${apiKey}`,
+            'HTTP-Referer': window.location.href
           },
           body: JSON.stringify({
-            model: 'mixtral-8x7b-32768',
+            model: 'gpt-3.5-turbo',
             messages: [{role: 'user', content: text}],
             max_tokens: 500,
             temperature: 0.7
